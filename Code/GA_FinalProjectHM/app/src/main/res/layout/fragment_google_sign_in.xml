@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.greenacademy.ga_finalprojecthm.google.GoogleSignInFragment">
+    tools:context="com.greenacademy.ga_finalprojecthm.fragment.GoogleSignInFragment">
 
     <!-- TODO: Update blank fragment layout -->
 

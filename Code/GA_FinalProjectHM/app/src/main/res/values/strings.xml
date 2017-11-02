@@ -1,8 +1,9 @@
 <resources>
     <string name="app_name">Final Project H&amp;M</string>
+    <string name="facebook_app_id">1530057683776324</string>
+    <string name="fb_login_protocol_scheme">fb1530057683776324</string>
     <string-array name="navigation_drawer_items_array">
-        <item>Connect</item>
-        <item>Fixtures</item>
-        <item>Table</item>
+        <item>Google+</item>
+        <item>Facebook</item>
     </string-array>
 </resources>

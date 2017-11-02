@@ -1,4 +1,4 @@
-package com.greenacademy.ga_finalprojecthm.google;
+package com.greenacademy.ga_finalprojecthm.fragment;
 
 
 import android.content.Intent;
@@ -32,7 +32,7 @@ import com.greenacademy.ga_finalprojecthm.R;
  */
 public class GoogleSignInFragment extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     private static final int RC_SIGN_IN = 0;
-    private static final String TAG = "";
+    private static final String TAG = "handleSignInResult";
     GoogleApiClient mGoogleApiClient;
     TextView tvStatus,tvEmail;
     SignInButton btnSignIn;
@@ -117,7 +117,7 @@ public class GoogleSignInFragment extends Fragment implements View.OnClickListen
     }
 
     private void handleSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        Log.d(TAG, result.isSuccess() + "");
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();

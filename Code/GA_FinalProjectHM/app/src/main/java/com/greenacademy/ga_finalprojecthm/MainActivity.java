@@ -11,11 +11,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
@@ -35,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
+    private static final int MENU_ADD = Menu.FIRST;
+    private static final int MENU_LIST = Menu.FIRST + 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,10 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
         setupToolbar();
 
-        DataIcon[] drawerItems = new DataIcon[2];
+        DataIcon[] drawerItems = new DataIcon[mNavigationDrawerItemTitles.length];
 
-        drawerItems[0] = new DataIcon(R.drawable.google_plus_24px, mNavigationDrawerItemTitles[0]);
-        drawerItems[1] = new DataIcon(R.drawable.facebook_24px, mNavigationDrawerItemTitles[1]);
+        for (int i = 0; i < mNavigationDrawerItemTitles.length; i++){
+            drawerItems[i] = new DataIcon(0, mNavigationDrawerItemTitles[i]);
+        }
+//        drawerItems[0] = new DataIcon(R.drawable.facebook_24px, mNavigationDrawerItemTitles[1]);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -69,18 +75,18 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setupDrawerToggle();
 
-        //generating KeyHash
-        try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo("com.greenacademy.ga_finalprojecthm", PackageManager.GET_SIGNATURES);
-            for(Signature signature: packageInfo.signatures){
-                MessageDigest messageDigest = MessageDigest.getInstance("SHA");
-                messageDigest.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(messageDigest.digest(),Base64.DEFAULT));
-            }
-        }
-        catch (Exception e){
-
-        }
+//        //generating KeyHash
+//        try {
+//            PackageInfo packageInfo = getPackageManager().getPackageInfo("com.greenacademy.ga_finalprojecthm", PackageManager.GET_SIGNATURES);
+//            for(Signature signature: packageInfo.signatures){
+//                MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+//                messageDigest.update(signature.toByteArray());
+//                Log.d("KeyHash", Base64.encodeToString(messageDigest.digest(),Base64.DEFAULT));
+//            }
+//        }
+//        catch (Exception e){
+//
+//        }
     }
 
     private void selectItem(int position) {
@@ -120,6 +126,19 @@ public class MainActivity extends AppCompatActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+        switch (item.getItemId()) {
+            case R.id.wish_list:
+                Toast.makeText(this, "Wish List selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case MENU_ADD:
+                Toast.makeText(this, "Add selected", Toast.LENGTH_SHORT).show();
+                return true;
+            case MENU_LIST:
+                Toast.makeText(this, "List selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -141,10 +160,29 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        toolbar.inflateMenu(R.menu.menu_toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return onOptionsItemSelected(item);
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+//        menu.clear();
+        menu.add(Menu.NONE, MENU_ADD, Menu.NONE, "").setIcon(R.drawable.facebook_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        menu.add(Menu.NONE, MENU_LIST, Menu.NONE, "").setIcon(R.drawable.google_plus_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     private void setupDrawerToggle() {
         mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         mDrawerToggle.syncState();
     }
-
 }

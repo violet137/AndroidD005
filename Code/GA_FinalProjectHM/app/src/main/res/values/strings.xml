@@ -3,7 +3,15 @@
     <string name="facebook_app_id">1530057683776324</string>
     <string name="fb_login_protocol_scheme">fb1530057683776324</string>
     <string-array name="navigation_drawer_items_array">
-        <item>Google+</item>
-        <item>Facebook</item>
+        <item>Products</item>
+        <item>Ladies</item>
+        <item>Men</item>
+        <item>Kids</item>
+        <item>Magazine</item>
+        <item>Wish List</item>
+        <item>My H&amp;M</item>
+        <item>Support</item>
+        <item>Find a store</item>
+        <item>Newsletter</item>
     </string-array>
 </resources>

@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 
@@ -22,6 +23,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
 import com.greenacademy.ga_finalprojecthm.fragment.FacebookLoginFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.GoogleSignInFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.model.DataIcon;
 
 import java.security.MessageDigest;
@@ -48,12 +50,14 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerListView = findViewById(R.id.left_drawer);
 
+
         setupToolbar();
 
-        DataIcon[] drawerItems = new DataIcon[2];
+        DataIcon[] drawerItems = new DataIcon[3];
 
         drawerItems[0] = new DataIcon(R.drawable.google_plus_24px, mNavigationDrawerItemTitles[0]);
         drawerItems[1] = new DataIcon(R.drawable.facebook_24px, mNavigationDrawerItemTitles[1]);
+        drawerItems[2] = new DataIcon(R.drawable.google_maps_24px, mNavigationDrawerItemTitles[2]);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -94,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new FacebookLoginFragment();
                 break;
             case 2:
-//                fragment = new TableFragment();
+                fragment = new MapFragment();
                 break;
 
             default:

@@ -6,9 +6,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -35,6 +39,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
     GoogleMap mGoogleMap;
     MapView mMapview;
     View mView;
+    //declare id of menu item for adding it to menu (tool bar/action bar)
+    private static final int MENU_LOGOUT = Menu.FIRST;
+    private static final int MENU_LIST = Menu.FIRST + 1;
 
     public MapFragment() {
         // Required empty public constructor
@@ -82,5 +89,30 @@ public class MapFragment extends Fragment implements OnMapReadyCallback{
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.map_marker)));
         CameraPosition cameraPosition = CameraPosition.builder().target(new LatLng(10.7,106.6)).zoom(10).bearing(0).tilt(45).build();
         googleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //in order to create option menu on tool bar (action bar)
+        setHasOptionsMenu(true);
+    }
+
+    //in order to create menu item on tool bar (action bar)
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+//        inflater.inflate(R.menu.menu_toolbar, menu);
+
+        menu.add(Menu.NONE, MENU_LOGOUT, Menu.NONE, R.string.log_out)
+                .setIcon(0)
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(getActivity(), "Log out selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                })
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 }

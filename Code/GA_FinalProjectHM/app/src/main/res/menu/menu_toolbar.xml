@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:title="Wish List"
-        android:id="@+id/wish_list"
-        android:icon="@drawable/google_plus_24px"
-        app:showAsAction="ifRoom"/>
+    <item
+        android:id="@+id/main_menu_icon_wishlist"
+        android:icon="@drawable/main_menu_icon_wishlist_normal"
+        android:title="@string/main_menu_icon_wishlist"
+        android:visible="true"
+        app:showAsAction="ifRoom" />
 </menu>

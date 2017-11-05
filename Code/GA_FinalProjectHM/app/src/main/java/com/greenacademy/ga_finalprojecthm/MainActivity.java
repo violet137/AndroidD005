@@ -61,6 +61,13 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < mNavigationDrawerItemTitles.length; i++){
             drawerItems[i] = new DataIcon(0, mNavigationDrawerItemTitles[i]);
         }
+        drawerItems[0].setIcon(R.drawable.main_menu_icon_shop_normal);
+        drawerItems[4].setIcon(R.drawable.main_menu_icon_inspiration_normal);
+        drawerItems[5].setIcon(R.drawable.main_menu_icon_wishlist_normal);
+        drawerItems[6].setIcon(R.drawable.main_menu_icon_my_hm_normal);
+        drawerItems[7].setIcon(R.drawable.main_menu_icon_services_normal);
+        drawerItems[8].setIcon(R.drawable.main_menu_icon_store_locator_normal);
+        drawerItems[9].setIcon(R.drawable.main_menu_icon_newsletter_normal);
 //        drawerItems[0] = new DataIcon(R.drawable.facebook_24px, mNavigationDrawerItemTitles[1]);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
@@ -129,14 +136,8 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         switch (item.getItemId()) {
-            case R.id.wish_list:
+            case R.id.main_menu_icon_wishlist:
                 Toast.makeText(this, "Wish List selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case MENU_ADD:
-                Toast.makeText(this, "Add selected", Toast.LENGTH_SHORT).show();
-                return true;
-            case MENU_LIST:
-                Toast.makeText(this, "List selected", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 break;
@@ -176,9 +177,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-//        menu.clear();
-        menu.add(Menu.NONE, MENU_ADD, Menu.NONE, "").setIcon(R.drawable.facebook_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        menu.add(Menu.NONE, MENU_LIST, Menu.NONE, "").setIcon(R.drawable.google_plus_24px).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         return super.onPrepareOptionsMenu(menu);
     }
 

@@ -14,4 +14,8 @@
         <item>Find a store</item>
         <item>Newsletter</item>
     </string-array>
+    <string name="main_menu_icon_wishlist">Wish List</string>
+    <string name="log_in">Log In</string>
+    <string name="log_out">Log Out</string>
+    <string name="general_menu_icon_info">Info</string>
 </resources>

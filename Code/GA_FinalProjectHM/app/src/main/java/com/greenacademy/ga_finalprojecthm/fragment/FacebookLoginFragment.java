@@ -3,6 +3,7 @@ package com.greenacademy.ga_finalprojecthm.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -38,11 +39,12 @@ public class FacebookLoginFragment extends Fragment {
     CallbackManager callbackManager;
     TextView tvID, tvName, tvEmail;
     ProfilePictureView profile_pic;
+    private static final int MENU_LOGIN = Menu.FIRST;
+    private static final int MENU_LIST = Menu.FIRST + 1;
 
     public FacebookLoginFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -110,7 +112,27 @@ public class FacebookLoginFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //in order to create option menu on tool bar (action bar)
+        setHasOptionsMenu(true);
+    }
+
+    //in order to create menu item on tool bar (action bar)
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
+        menu.clear();
+//        inflater.inflate(R.menu.menu_toolbar, menu);
+
+        menu.add(Menu.NONE, MENU_LOGIN, Menu.NONE, R.string.log_in)
+                .setIcon(0)
+                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Toast.makeText(getActivity(), "Log in selected", Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                })
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 }

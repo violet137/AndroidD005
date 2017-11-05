@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
 import com.greenacademy.ga_finalprojecthm.fragment.FacebookLoginFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.GoogleSignInFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.model.DataIcon;
 
 import java.security.MessageDigest;
@@ -52,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerListView = findViewById(R.id.left_drawer);
 
-        setupToolbar();
 
+        setupToolbar();
         DataIcon[] drawerItems = new DataIcon[mNavigationDrawerItemTitles.length];
 
         for (int i = 0; i < mNavigationDrawerItemTitles.length; i++){
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new FacebookLoginFragment();
                 break;
             case 2:
-//                fragment = new TableFragment();
+                fragment = new MapFragment();
                 break;
 
             default:

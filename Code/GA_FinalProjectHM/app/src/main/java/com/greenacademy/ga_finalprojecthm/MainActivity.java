@@ -20,8 +20,11 @@ import android.support.v7.widget.Toolbar;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
+import com.greenacademy.ga_finalprojecthm.fragment.ContactFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.FacebookLoginFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.GoogleSignInFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.RegisterFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.SupportFragment;
 import com.greenacademy.ga_finalprojecthm.model.DataIcon;
 
 import java.security.MessageDigest;
@@ -88,13 +91,15 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
-                fragment = new GoogleSignInFragment();
+                fragment = new ContactFragment();
+//                fragment = new RegisterFragment();
+//                fragment = new GoogleSignInFragment();
                 break;
             case 1:
-                fragment = new FacebookLoginFragment();
+//                fragment = new FacebookLoginFragment();
                 break;
             case 2:
-//                fragment = new TableFragment();
+//                fragment = new RegisterFragment();
                 break;
 
             default:

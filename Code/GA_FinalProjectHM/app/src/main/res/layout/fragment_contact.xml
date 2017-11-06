@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.greenacademy.ga_finalprojecthm.fragment.ContactFragment">
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="#ff000000"
+        android:gravity="center_vertical"
+        android:paddingLeft="12dp"
+        android:paddingStart="12dp"
+        android:text="CONTACT"
+        android:textColor="#ffffffff"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView3"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"
+        android:gravity="center_vertical"
+        android:text="CONTACT INFO"
+        android:textColor="#ff000000"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvCustomerService"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4"
+        android:layout_below="@+id/textView4"
+        android:textColor="#ff000000"
+        android:text="Customer Service"
+        android:gravity="center_vertical"/>
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignLeft="@+id/tvCustomerService"
+        android:layout_alignStart="@+id/tvCustomerService"
+        android:layout_below="@+id/tvCustomerService"
+        android:text="SEND A QUESTON"
+        android:textStyle="bold"
+        android:textColor="#ff000000"/>
+
+    <TextView
+        android:id="@+id/tvContactForm"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_alignLeft="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_below="@+id/textView6"
+        android:text="Contact Form"
+        android:gravity="center_vertical"
+        android:textColor="#ff000000"/>
+</RelativeLayout>

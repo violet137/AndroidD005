@@ -1,0 +1,158 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.greenacademy.ga_finalprojecthm.fragment.RegisterFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="#ff000000"
+            android:gravity="center_vertical"
+            android:paddingLeft="12dp"
+            android:text="REGISTRATION"
+            android:textAllCaps="true"
+            android:textColor="#ffffffff"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="27dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/textView12"
+            android:layout_alignLeft="@+id/textView12"
+            android:layout_alignStart="@+id/textView12"
+            android:text="Phần bắt buộc"
+            android:textColor="#ff000000"
+            android:textSize="10dp"/>
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_below="@+id/textView13"
+            android:layout_alignLeft="@+id/textView13"
+            android:layout_alignStart="@+id/textView13"
+            android:textColor="#ff000000"
+            android:text="Email(username):"/>
+
+        <EditText
+            android:id="@+id/etEmail"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:layout_below="@+id/textView14"
+            android:layout_alignLeft="@+id/textView14"
+            android:layout_alignStart="@+id/textView14"
+            android:layout_marginEnd="12dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/tvprivacypolicy"/>
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etEmail"
+            android:layout_alignStart="@+id/etEmail"
+            android:layout_below="@+id/etEmail"
+            android:layout_marginTop="8dp"
+            android:text="Mật khẩu:"
+            android:textColor="#ff000000"/>
+        <EditText
+            android:id="@+id/etPass"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/textView17"
+            android:layout_alignStart="@+id/textView17"
+            android:layout_below="@+id/textView17"
+            android:layout_marginTop="0dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:layout_alignEnd="@+id/etEmail"
+            android:layout_alignRight="@+id/etEmail"
+            android:background="@drawable/tvprivacypolicy"/>
+        <TextView
+            android:id="@+id/tvErrorPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etPass"
+            android:layout_alignStart="@+id/etPass"
+            android:layout_below="@+id/etPass"
+            android:layout_marginTop="2dp"
+            android:text="mật khẩu của bạn cần có ít nhất 6 ký tự. sử dụng chữ cái trên và chữ thường cùng với số để làm cho nó an toàn hơn"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"/>
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tvErrorPass"
+            android:layout_alignStart="@+id/tvErrorPass"
+            android:layout_below="@+id/tvErrorPass"
+            android:layout_marginTop="8dp"
+            android:text="Xác nhận mật khẩu"
+            android:textColor="#ff000000"/>
+        <EditText
+            android:id="@+id/etConfirmPass"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_alignLeft="@+id/textView19"
+            android:layout_alignStart="@+id/textView19"
+            android:layout_below="@+id/textView19"
+            android:layout_marginTop="0dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:layout_alignEnd="@+id/etPass"
+            android:layout_alignRight="@+id/etPass"
+            android:background="@drawable/tvprivacypolicy" />
+        <TextView
+            android:id="@+id/textView20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etConfirmPass"
+            android:layout_alignStart="@+id/etConfirmPass"
+            android:layout_below="@+id/etConfirmPass"
+            android:layout_marginTop="10dp"
+            android:textColor="#ff000000"
+            android:text="By clicking 'Register' i accept the"/>
+        <TextView
+            android:id="@+id/tvSecurity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textView20"
+            android:layout_alignBottom="@+id/textView20"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_toEndOf="@+id/textView20"
+            android:layout_toRightOf="@+id/textView20"
+            android:text="Privacy Policy"
+            android:textColor="#ff000000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnrgt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="13dp"
+            android:text="Register"
+            android:layout_below="@+id/tvSecurity"
+            android:layout_alignLeft="@+id/textView20"
+            android:layout_alignStart="@+id/textView20"
+            android:layout_alignRight="@+id/etConfirmPass"
+            android:layout_alignEnd="@+id/etConfirmPass"
+            android:textColor="#ffffffff"
+            android:background="@drawable/btnregister"
+            android:textSize="20dp"/>
+    </RelativeLayout>
+</FrameLayout>

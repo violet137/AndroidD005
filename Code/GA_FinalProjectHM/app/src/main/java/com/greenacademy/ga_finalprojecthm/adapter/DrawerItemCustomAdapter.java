@@ -47,5 +47,4 @@ public class DrawerItemCustomAdapter extends ArrayAdapter<DataIcon> {
 
         return listItemView;
     }
-    
 }

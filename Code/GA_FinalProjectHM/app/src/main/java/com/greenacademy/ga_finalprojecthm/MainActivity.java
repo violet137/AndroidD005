@@ -11,20 +11,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
-import com.greenacademy.ga_finalprojecthm.fragment.ContactFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.FacebookLoginFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.GoogleSignInFragment;
-import com.greenacademy.ga_finalprojecthm.fragment.RegisterFragment;
-import com.greenacademy.ga_finalprojecthm.fragment.SupportFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.model.DataIcon;
 
 import java.security.MessageDigest;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
+    private static final int MENU_ADD = Menu.FIRST;
+    private static final int MENU_LIST = Menu.FIRST + 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +54,21 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout = findViewById(R.id.drawer_layout);
         mDrawerListView = findViewById(R.id.left_drawer);
 
+
         setupToolbar();
+        DataIcon[] drawerItems = new DataIcon[mNavigationDrawerItemTitles.length];
 
-        DataIcon[] drawerItems = new DataIcon[2];
-
-        drawerItems[0] = new DataIcon(R.drawable.google_plus_24px, mNavigationDrawerItemTitles[0]);
-        drawerItems[1] = new DataIcon(R.drawable.facebook_24px, mNavigationDrawerItemTitles[1]);
+        for (int i = 0; i < mNavigationDrawerItemTitles.length; i++){
+            drawerItems[i] = new DataIcon(0, mNavigationDrawerItemTitles[i]);
+        }
+        drawerItems[0].setIcon(R.drawable.main_menu_icon_shop_normal);
+        drawerItems[4].setIcon(R.drawable.main_menu_icon_inspiration_normal);
+        drawerItems[5].setIcon(R.drawable.main_menu_icon_wishlist_normal);
+        drawerItems[6].setIcon(R.drawable.main_menu_icon_my_hm_normal);
+        drawerItems[7].setIcon(R.drawable.main_menu_icon_services_normal);
+        drawerItems[8].setIcon(R.drawable.main_menu_icon_store_locator_normal);
+        drawerItems[9].setIcon(R.drawable.main_menu_icon_newsletter_normal);
+//        drawerItems[0] = new DataIcon(R.drawable.facebook_24px, mNavigationDrawerItemTitles[1]);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -72,18 +84,18 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setupDrawerToggle();
 
-        //generating KeyHash
-        try {
-            PackageInfo packageInfo = getPackageManager().getPackageInfo("com.greenacademy.ga_finalprojecthm", PackageManager.GET_SIGNATURES);
-            for(Signature signature: packageInfo.signatures){
-                MessageDigest messageDigest = MessageDigest.getInstance("SHA");
-                messageDigest.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(messageDigest.digest(),Base64.DEFAULT));
-            }
-        }
-        catch (Exception e){
-
-        }
+//        //generating KeyHash
+//        try {
+//            PackageInfo packageInfo = getPackageManager().getPackageInfo("com.greenacademy.ga_finalprojecthm", PackageManager.GET_SIGNATURES);
+//            for(Signature signature: packageInfo.signatures){
+//                MessageDigest messageDigest = MessageDigest.getInstance("SHA");
+//                messageDigest.update(signature.toByteArray());
+//                Log.d("KeyHash", Base64.encodeToString(messageDigest.digest(),Base64.DEFAULT));
+//            }
+//        }
+//        catch (Exception e){
+//
+//        }
     }
 
     private void selectItem(int position) {
@@ -91,15 +103,13 @@ public class MainActivity extends AppCompatActivity {
 
         switch (position) {
             case 0:
-                fragment = new ContactFragment();
-//                fragment = new RegisterFragment();
-//                fragment = new GoogleSignInFragment();
+                fragment = new GoogleSignInFragment();
                 break;
             case 1:
-//                fragment = new FacebookLoginFragment();
+                fragment = new FacebookLoginFragment();
                 break;
             case 2:
-//                fragment = new RegisterFragment();
+                fragment = new MapFragment();
                 break;
 
             default:
@@ -125,6 +135,13 @@ public class MainActivity extends AppCompatActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+        switch (item.getItemId()) {
+            case R.id.main_menu_icon_wishlist:
+                Toast.makeText(this, "Wish List selected", Toast.LENGTH_SHORT).show();
+                return true;
+            default:
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -146,10 +163,26 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        toolbar.inflateMenu(R.menu.menu_toolbar);
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return onOptionsItemSelected(item);
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     private void setupDrawerToggle() {
         mDrawerToggle = new android.support.v7.app.ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name, R.string.app_name);
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         mDrawerToggle.syncState();
     }
-
 }

@@ -26,22 +26,18 @@
         <FrameLayout
             android:id="@+id/content_frame"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 
     <ListView
         android:id="@+id/left_drawer"
-        android:layout_width="260dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="#FFFFFF"
         android:choiceMode="singleChoice"
         android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp">
-
-    </ListView>
+        android:dividerHeight="1dp" />
     
 </android.support.v4.widget.DrawerLayout>

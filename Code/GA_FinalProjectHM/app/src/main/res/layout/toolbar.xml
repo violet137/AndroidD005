@@ -7,5 +7,4 @@
     android:background="?attr/colorPrimary"
     android:minHeight="?attr/actionBarSize"
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-    local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-    local:titleTextColor="@color/colorAccent" />
+    local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />

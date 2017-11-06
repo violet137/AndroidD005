@@ -3,19 +3,11 @@
     <string name="facebook_app_id">1530057683776324</string>
     <string name="fb_login_protocol_scheme">fb1530057683776324</string>
     <string-array name="navigation_drawer_items_array">
-        <item>Products</item>
-        <item>Ladies</item>
-        <item>Men</item>
-        <item>Kids</item>
-        <item>Magazine</item>
-        <item>Wish List</item>
-        <item>My H&amp;M</item>
-        <item>Support</item>
-        <item>Find a store</item>
-        <item>Newsletter</item>
+        <item>Google+</item>
+        <item>Facebook</item>
     </string-array>
-    <string name="main_menu_icon_wishlist">Wish List</string>
-    <string name="log_in">Log In</string>
-    <string name="log_out">Log Out</string>
-    <string name="general_menu_icon_info">Info</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="privacy_policy">sdfsdfsdf</string>
 </resources>

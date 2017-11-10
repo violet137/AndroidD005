@@ -1,32 +1,31 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.greenacademy.ga_finalprojecthm.fragment.CustomerFragment">
-
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_general"
+        android:paddingBottom="@dimen/padding_bottom_general"
+        android:paddingEnd="@dimen/padding_end_general"
+        android:paddingLeft="@dimen/padding_start_general"
+        android:paddingRight="@dimen/padding_end_general"
+        android:paddingStart="@dimen/padding_start_general"
+        android:paddingTop="@dimen/padding_top_general"
         android:background="#ff000000"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp"
-        android:paddingStart="15dp"
-        android:text="HELP"
+        android:text="@string/help"
         android:textAllCaps="true"
         android:textColor="#ffffffff"
-        android:textSize="20dp"
+        android:textSize="@dimen/font_size_general"
         android:textStyle="bold" />
 
     <ListView
         android:id="@+id/lvHelp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2" />
-</RelativeLayout>
+        android:layout_height="match_parent" />
+</LinearLayout>

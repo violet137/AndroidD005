@@ -39,11 +39,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
-        etEmail = (EditText) view.findViewById(R.id.etEmail);
-        etPass = (EditText) view.findViewById(R.id.etPass);
-        etConfirmPass = (EditText) view.findViewById(R.id.etConfirmPass);
-        tvSecurity = (TextView) view.findViewById(R.id.tvSecurity);
-        btnrgt = (Button) view.findViewById(R.id.btnrgt);
+        etEmail = view.findViewById(R.id.etEmail);
+        etPass = view.findViewById(R.id.etPass);
+        etConfirmPass = view.findViewById(R.id.etConfirmPass);
+        tvSecurity = view.findViewById(R.id.tvSecurity);
+        btnrgt = view.findViewById(R.id.btnrgt);
         String underline = "<u>Privacy Policy </u>";
         tvSecurity.setText(Html.fromHtml(underline));
         asyncTaskRegister = new RegisterAsyncTask(getActivity());
@@ -75,8 +75,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     private void dialogregister() {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         PrivacyPolicyDialog dialog_registe = new PrivacyPolicyDialog();
-        dialog_registe.setData("title nè mấy má", "new register");
-        dialog_registe.show(fragmentManager, "sdf");
+        dialog_registe.setData("Chính sách bảo mật", "new register");
+        dialog_registe.show(fragmentManager, "PrivacyPolicy");
     }
 
     private boolean dataEmail(String strEmail) {

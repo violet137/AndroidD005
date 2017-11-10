@@ -6,12 +6,42 @@
     android:orientation="vertical"
     tools:context="com.greenacademy.ga_finalprojecthm.fragment.MapFragment">
 
-    <ImageButton
-        android:id="@+id/btnMap"
-        android:layout_width="80dp"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:src="@drawable/common_google_signin_btn_text_dark_normal_background" />
+        android:layout_gravity="end"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnMap"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/list_shop" />
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/com_facebook_tooltip_black_bottomnub" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_general"
+        android:paddingBottom="@dimen/padding_bottom_general"
+        android:paddingEnd="@dimen/padding_end_general"
+        android:paddingLeft="@dimen/padding_start_general"
+        android:paddingRight="@dimen/padding_end_general"
+        android:paddingStart="@dimen/padding_start_general"
+        android:paddingTop="@dimen/padding_top_general"
+        android:background="@color/cast_intro_overlay_background_color"
+        android:text="@string/find_a_store"
+        android:textAllCaps="true"
+        android:textStyle="bold"
+        android:textColor="@color/cardview_light_background"
+        android:textSize="@dimen/font_size_general" />
 
     <ViewSwitcher
         android:id="@+id/vsMap"
@@ -21,16 +51,12 @@
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10dp" />
+            android:layout_height="match_parent" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcvList"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-
-        <!-- TODO: Update blank fragment layout -->
     </ViewSwitcher>
-
 </LinearLayout>

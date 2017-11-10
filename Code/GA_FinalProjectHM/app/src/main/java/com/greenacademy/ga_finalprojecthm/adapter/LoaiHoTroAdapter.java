@@ -10,8 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.greenacademy.ga_finalprojecthm.R;
-import com.greenacademy.ga_finalprojecthm.model.LoaiHoTroJson;
-import com.greenacademy.ga_finalprojecthm.model.QuestionJSON;
 
 import java.util.ArrayList;
 
@@ -19,29 +17,29 @@ import java.util.ArrayList;
  * Created by GIT on 11/5/2017.
  */
 
-public class LoaiHoTroAdapter extends ArrayAdapter<LoaiHoTroJson> {
+public class LoaiHoTroAdapter extends ArrayAdapter<String> {
     //lay man hinh giao dien tu ngoai dua vao
     Context con;
     //khai bao de lay item_music
     int layout;
     //quan ly danh sach loai ho tro
-    ArrayList<LoaiHoTroJson> arrquestionJSON;
-    public LoaiHoTroAdapter(Context context, int resource, ArrayList<LoaiHoTroJson> arrloaihotro) {
+    ArrayList<String> arrLoaiHoTroString;
+    public LoaiHoTroAdapter(Context context, int resource, ArrayList<String> arrloaihotro) {
         super(context, resource);
         con = context;
         layout = resource;
-        arrquestionJSON = arrloaihotro;
+        arrLoaiHoTroString = arrloaihotro;
     }
 
     @Override
     public int getCount() {
-        return arrquestionJSON.size();
+        return arrLoaiHoTroString.size();
     }
 
     @Nullable
     @Override
-    public LoaiHoTroJson getItem(int position) {
-        return arrquestionJSON.get(position);
+    public String getItem(int position) {
+        return arrLoaiHoTroString.get(position);
     }
     @NonNull
     @Override
@@ -50,8 +48,8 @@ public class LoaiHoTroAdapter extends ArrayAdapter<LoaiHoTroJson> {
         convertView = inflater.inflate(layout,null);//dua layout (iem_music)
         TextView tvloaihotro = convertView.findViewById(R.id.tvloaihotro);//textview item for list
         //hiển thị data Item
-        LoaiHoTroJson temQuestion = arrquestionJSON.get(position);
-        tvloaihotro.setText(temQuestion.getTenHoTro());
+        tvloaihotro.setText(arrLoaiHoTroString.get(position));
         return convertView;
     }
+
 }

@@ -6,8 +6,15 @@
     <TextView
         android:id="@+id/tvloaihotro"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_general"
+        android:layout_marginEnd="@dimen/margin_end_general"
+        android:layout_marginLeft="@dimen/margin_start_general"
+        android:layout_marginRight="@dimen/margin_end_general"
+        android:layout_marginStart="@dimen/margin_start_general"
+        android:layout_marginTop="@dimen/margin_top_general"
         android:gravity="center_vertical"
         android:textColor="#ff000000"
-        android:text="TextView" />
+        android:text=""
+        android:textSize="@dimen/font_size_general"/>
 </LinearLayout>

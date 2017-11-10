@@ -1,24 +1,21 @@
 package com.greenacademy.ga_finalprojecthm.model;
 
-import android.widget.ArrayAdapter;
-
 import java.util.ArrayList;
 
 /**
- * Created by GIT on 11/5/2017.
+ * Created by GIT on 11/4/2017.
  */
 
-public class RootLoaiHoTroJson {
-    ArrayList<LoaiHoTroJson> LoaiHoTroTranfers = new ArrayList<>();
+public class RootSupport {
+    ArrayList<QuestionSupport> CauHoiTranfers = new ArrayList<>();
     int status;
     String Description;
-
-    public ArrayList<LoaiHoTroJson> getLoaiHoTroTranfers() {
-        return LoaiHoTroTranfers;
+    public ArrayList<QuestionSupport> getCauHoiTranfers() {
+        return CauHoiTranfers;
     }
 
-    public void setLoaiHoTroTranfers(ArrayList<LoaiHoTroJson> loaiHoTroTranfers) {
-        LoaiHoTroTranfers = loaiHoTroTranfers;
+    public void setCauHoiTranfers(ArrayList<QuestionSupport> cuaHangTranfers) {
+        CauHoiTranfers = cuaHangTranfers;
     }
 
     public int getStatus() {

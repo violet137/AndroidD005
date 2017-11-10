@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.hiang.handmmagazine.ChiTietTapChiFragment">
+
+    <TextView
+        android:id="@+id/tvTenTC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/tv_danh_muc"
+        android:textColor="#ffffff"
+        android:textSize="@dimen/font_size_general" />
+
+    <WebView
+        android:id="@+id/wvNoiDungTapChi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

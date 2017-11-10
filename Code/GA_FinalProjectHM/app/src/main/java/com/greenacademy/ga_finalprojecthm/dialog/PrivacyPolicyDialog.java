@@ -29,7 +29,7 @@ public class PrivacyPolicyDialog extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater layoutInflater =getActivity().getLayoutInflater();//lấy quyền giao diện hiển thị
-        builder.setTitle("title nè mấy má");
+        builder.setTitle("Chính sách bảo mật\n\n");
         View dialog = layoutInflater.inflate(R.layout.dialog_privacypolicy, null);
         tvDialogSecurity = (TextView) dialog.findViewById(R.id.tvDialogSecurity);
         tvDialogSecurity.setText(R.string.privacy_policy);

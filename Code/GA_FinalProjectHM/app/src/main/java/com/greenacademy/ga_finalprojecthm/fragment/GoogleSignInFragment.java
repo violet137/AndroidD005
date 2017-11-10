@@ -49,11 +49,11 @@ public class GoogleSignInFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_google_sign_in, container, false);
-        btnSignIn = (SignInButton) view.findViewById(R.id.btnSignIn);
-        tvStatus = (TextView) view.findViewById(R.id.tvStatus);
-        tvEmail = (TextView) view.findViewById(R.id.tvEmail);
-        btnSignOut = (Button) view.findViewById(R.id.btnSignout);
-        imgProfile = (ImageView) view.findViewById(R.id.imgProfile);
+        btnSignIn = view.findViewById(R.id.btnSignIn);
+        tvStatus = view.findViewById(R.id.tvStatus);
+        tvEmail = view.findViewById(R.id.tvEmail);
+        btnSignOut = view.findViewById(R.id.btnSignout);
+        imgProfile = view.findViewById(R.id.imgProfile);
 
         btnSignIn.setSize(SignInButton.SIZE_STANDARD);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -139,7 +139,15 @@ public class GoogleSignInFragment extends Fragment implements View.OnClickListen
 //            }
         } else {
             // Signed out, show unauthenticated UI.
-            tvStatus.setText("Login Failed");
+            tvStatus.setText(R.string.log_in_failed);
         }
+    }
+
+    //dùng để sửa error: Already managing a GoogleApiClient with id 0
+    @Override
+    public void onPause() {
+        super.onPause();
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
     }
 }

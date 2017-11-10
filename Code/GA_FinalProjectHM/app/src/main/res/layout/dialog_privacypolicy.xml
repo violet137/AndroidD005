@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/tvDialogSecurity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:textColor="#ff000000"
-        android:text="TextView" />
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_general"
+        android:layout_marginEnd="@dimen/margin_end_general"
+        android:layout_marginLeft="@dimen/margin_start_general"
+        android:layout_marginRight="@dimen/margin_end_general"
+        android:layout_marginStart="@dimen/margin_start_general"
+        android:layout_marginTop="@dimen/margin_top_general"
+        android:paddingBottom="@dimen/padding_bottom_general"
+        android:paddingEnd="@dimen/padding_end_general"
+        android:paddingLeft="@dimen/padding_start_general"
+        android:paddingRight="@dimen/padding_end_general"
+        android:paddingStart="@dimen/padding_start_general"
+        android:paddingTop="@dimen/padding_top_general"
+        android:text="@string/privacy_policy"
+        android:textColor="#ff000000" />
 </LinearLayout>
+</ScrollView>

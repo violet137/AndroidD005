@@ -26,8 +26,8 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contact, container, false);
-        tvContactForm = (TextView) view.findViewById(R.id.tvContactForm);
-        tvCustomerService = (TextView) view.findViewById(R.id.tvCustomerService);
+        tvContactForm = view.findViewById(R.id.tvContactForm);
+        tvCustomerService = view.findViewById(R.id.tvCustomerService);
         tvContactForm.setOnClickListener(this);
         tvCustomerService.setOnClickListener(this);
         return view;

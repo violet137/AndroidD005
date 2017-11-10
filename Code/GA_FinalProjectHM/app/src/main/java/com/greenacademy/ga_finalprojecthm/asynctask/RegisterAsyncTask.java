@@ -39,7 +39,7 @@ public class RegisterAsyncTask extends AsyncTask<String, Void, String> {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("Username", strings[0]);
             jsonObject.put("Pwd", strings[1]);
-            jsonObject.put("Ten", " ");
+            jsonObject.put("Ten", "");
             OutputStream outputStream = connection.getOutputStream();
             //pass data lên server
             String data = jsonObject.toString();

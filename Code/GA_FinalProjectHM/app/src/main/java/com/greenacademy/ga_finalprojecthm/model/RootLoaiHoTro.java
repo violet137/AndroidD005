@@ -3,19 +3,20 @@ package com.greenacademy.ga_finalprojecthm.model;
 import java.util.ArrayList;
 
 /**
- * Created by GIT on 11/4/2017.
+ * Created by GIT on 11/5/2017.
  */
 
-public class RootSupportJSON {
-    ArrayList<QuestionJSON> CauHoiTranfers = new ArrayList<>();
+public class RootLoaiHoTro {
+    ArrayList<LoaiHoTro> LoaiHoTroTranfers = new ArrayList<>();
     int status;
     String Description;
-    public ArrayList<QuestionJSON> getCauHoiTranfers() {
-        return CauHoiTranfers;
+
+    public ArrayList<LoaiHoTro> getLoaiHoTroTranfers() {
+        return LoaiHoTroTranfers;
     }
 
-    public void setCauHoiTranfers(ArrayList<QuestionJSON> cuaHangTranfers) {
-        CauHoiTranfers = cuaHangTranfers;
+    public void setLoaiHoTroTranfers(ArrayList<LoaiHoTro> loaiHoTroTranfers) {
+        LoaiHoTroTranfers = loaiHoTroTranfers;
     }
 
     public int getStatus() {

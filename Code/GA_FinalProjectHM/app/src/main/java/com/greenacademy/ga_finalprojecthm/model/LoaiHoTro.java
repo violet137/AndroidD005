@@ -4,15 +4,15 @@ package com.greenacademy.ga_finalprojecthm.model;
  * Created by GIT on 11/5/2017.
  */
 
-public class LoaiHoTroJson {
-    int IdHoTro;
+public class LoaiHoTro {
+    String IdHoTro;
     String TenHoTro;
 
-    public int getIdHoTro() {
+    public String getIdHoTro() {
         return IdHoTro;
     }
 
-    public void setIdHoTro(int idHoTro) {
+    public void setIdHoTro(String idHoTro) {
         IdHoTro = idHoTro;
     }
 

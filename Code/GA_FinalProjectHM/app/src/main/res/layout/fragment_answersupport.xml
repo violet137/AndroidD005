@@ -5,24 +5,41 @@
     android:orientation="vertical"
     tools:context="com.greenacademy.ga_finalprojecthm.fragment.AnswerSupportFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-
     <TextView
-        android:id="@+id/tvQuestionAnswer"
+        android:id="@+id/tvQuestion"
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_general"
+        android:paddingBottom="@dimen/padding_bottom_general"
+        android:paddingEnd="@dimen/padding_end_general"
+        android:paddingLeft="@dimen/padding_start_general"
+        android:paddingRight="@dimen/padding_end_general"
+        android:paddingStart="@dimen/padding_start_general"
+        android:paddingTop="@dimen/padding_top_general"
         android:background="#ff000000"
         android:gravity="center_vertical"
-        android:text="TextView"
+        android:text=""
         android:textAllCaps="true"
         android:textColor="#ffffffff"
-        android:textSize="15dp"
+        android:textSize="@dimen/font_size_general"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_bottom_general"
+        android:layout_marginEnd="@dimen/margin_end_general"
+        android:layout_marginLeft="@dimen/margin_start_general"
+        android:layout_marginRight="@dimen/margin_end_general"
+        android:layout_marginStart="@dimen/margin_start_general"
+        android:layout_marginTop="@dimen/margin_top_general"
+        android:paddingBottom="@dimen/padding_bottom_general"
+        android:paddingEnd="@dimen/padding_end_general"
+        android:paddingLeft="@dimen/padding_start_general"
+        android:paddingRight="@dimen/padding_end_general"
+        android:paddingStart="@dimen/padding_start_general"
+        android:paddingTop="@dimen/padding_top_general"
         android:textColor="#ff000000"
-        android:text="TextView" />
+        android:text="" />
 </LinearLayout>

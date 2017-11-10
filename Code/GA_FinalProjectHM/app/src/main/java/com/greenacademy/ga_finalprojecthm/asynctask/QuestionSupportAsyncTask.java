@@ -3,7 +3,7 @@ package com.greenacademy.ga_finalprojecthm.asynctask;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.greenacademy.ga_finalprojecthm.util.IQuestionSupport;
+import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,22 +12,21 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * Created by GIT on 11/4/2017.
  */
 
 public class QuestionSupportAsyncTask extends AsyncTask<Void, Void, String> {
-    IQuestionSupport iQuestionSupport;
+    IReceiverJSON iReceiverJSON;
     Context context;
 
     public QuestionSupportAsyncTask(Context context){
         this.context =context;
     }
     //cotrustt pass data for CustomerFragment
-    public void setiQuestionSupport(IQuestionSupport iQuestionSupport){
-        this.iQuestionSupport = iQuestionSupport;
+    public void setiQuestionSupport(IReceiverJSON iReceiverJSON){
+        this.iReceiverJSON = iReceiverJSON;
     }
 
     @Override
@@ -64,9 +63,6 @@ public class QuestionSupportAsyncTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String support) {
-        //JSONobject, JSONarray đại hiện cho json
-        ArrayList<String> temp = new ArrayList<>();
-        temp.add(support);
-        iQuestionSupport.GetQuestionSupport(temp);
+        iReceiverJSON.getStringJSON(support);
     }
 }

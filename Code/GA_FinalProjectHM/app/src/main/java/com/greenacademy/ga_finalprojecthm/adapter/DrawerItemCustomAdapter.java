@@ -37,13 +37,12 @@ public class DrawerItemCustomAdapter extends ArrayAdapter<DataIcon> {
         LayoutInflater inflater = LayoutInflater.from(mContext);
         listItemView = inflater.inflate(layoutResourceId, parent, false);
 
-        ImageView imgvIcon = listItemView.findViewById(R.id.imgvIcon);
         TextView tvTitle = listItemView.findViewById(R.id.tvTitle);
 
         DataIcon dataIcon = data[position];
 
-        imgvIcon.setImageResource(dataIcon.getIcon());
         tvTitle.setText(dataIcon.getTitle());
+        tvTitle.setCompoundDrawablesWithIntrinsicBounds(dataIcon.getIcon(), 0, 0, 0);
 
         return listItemView;
     }

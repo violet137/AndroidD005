@@ -1,10 +1,9 @@
 package com.greenacademy.ga_finalprojecthm.asynctask;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.greenacademy.ga_finalprojecthm.util.ILoaiHoTro;
+import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +12,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
 
 /**
  * Created by GIT on 11/5/2017.
@@ -21,9 +19,9 @@ import java.util.ArrayList;
 
 public class LoaiHoTroAsyncTask extends AsyncTask<Void, Void, String> {
     Context context;
-    ILoaiHoTro iLoaiHoTro;
-    public void setiLoaiHoTro(ILoaiHoTro iLoaiHoTro){
-        this.iLoaiHoTro = iLoaiHoTro;
+    IReceiverJSON iReceiverJSON;
+    public void setiLoaiHoTro(IReceiverJSON iReceiverJSON){
+        this.iReceiverJSON = iReceiverJSON;
     }
     public LoaiHoTroAsyncTask(Context context) {
         this.context = context;
@@ -63,8 +61,6 @@ public class LoaiHoTroAsyncTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String hotro) {
-        ArrayList<String> temp = new ArrayList<>();
-        temp.add(hotro);
-        iLoaiHoTro.GetLoaiHoTro(temp);
+        iReceiverJSON.getStringJSON(hotro);
     }
 }

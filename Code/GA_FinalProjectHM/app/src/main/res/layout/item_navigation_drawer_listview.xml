@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="?android:attr/activatedBackgroundIndicator"
+    android:minHeight="?android:attr/listPreferredItemHeightSmall" >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:drawablePadding="@dimen/padding_textview_drawable"
+        android:paddingBottom="@dimen/padding_bottom_general"
+        android:paddingEnd="@dimen/padding_end_general"
+        android:paddingLeft="@dimen/padding_start_general"
+        android:paddingRight="@dimen/padding_end_general"
+        android:paddingStart="@dimen/padding_start_general"
+        android:paddingTop="@dimen/padding_top_general"
+        android:textAppearance="?android:attr/textAppearanceListItemSmall"
+        android:textColor="@android:color/black" />
+
+</LinearLayout>

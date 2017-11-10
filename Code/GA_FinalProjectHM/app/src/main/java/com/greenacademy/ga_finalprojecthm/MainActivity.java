@@ -1,21 +1,16 @@
 package com.greenacademy.ga_finalprojecthm;
 
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
@@ -23,12 +18,11 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
-import com.greenacademy.ga_finalprojecthm.fragment.FacebookLoginFragment;
-import com.greenacademy.ga_finalprojecthm.fragment.GoogleSignInFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.MagazineFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.MyHMFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.SupportFragment;
 import com.greenacademy.ga_finalprojecthm.model.DataIcon;
-
-import java.security.MessageDigest;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -68,12 +62,11 @@ public class MainActivity extends AppCompatActivity {
         drawerItems[7].setIcon(R.drawable.main_menu_icon_services_normal);
         drawerItems[8].setIcon(R.drawable.main_menu_icon_store_locator_normal);
         drawerItems[9].setIcon(R.drawable.main_menu_icon_newsletter_normal);
-//        drawerItems[0] = new DataIcon(R.drawable.facebook_24px, mNavigationDrawerItemTitles[1]);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.navigation_drawer_listview_item, drawerItems);
+        DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.item_navigation_drawer_listview, drawerItems);
         mDrawerListView.setAdapter(adapter);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,16 +95,46 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
 
         switch (position) {
+            //fragment all products
             case 0:
-                fragment = new GoogleSignInFragment();
+//                fragment = new GoogleSignInFragment();
                 break;
+            //fragment Ladies products
             case 1:
-                fragment = new FacebookLoginFragment();
+//                fragment = new FacebookLoginFragment();
                 break;
+            //fragment Men products
             case 2:
+//                fragment = new MapFragment();
+                break;
+            //fragment Kids products
+            case 3:
+//                fragment = new MapFragment();
+                break;
+            //fragment Magazine
+            case 4:
+                fragment = new MagazineFragment();
+                break;
+            //fragment Wish List
+            case 5:
+//                fragment = new MapFragment();
+                break;
+            //fragment My H&M
+            case 6:
+                fragment = new MyHMFragment();
+                break;
+            //fragment Support
+            case 7:
+                fragment = new SupportFragment();
+                break;
+            //fragment Find a Store
+            case 8:
                 fragment = new MapFragment();
                 break;
-
+            //fragment Newsletter
+            case 9:
+//                fragment = new MapFragment();
+                break;
             default:
                 break;
         }
@@ -124,7 +147,6 @@ public class MainActivity extends AppCompatActivity {
             mDrawerListView.setSelection(position);
             setTitle(mNavigationDrawerItemTitles[position]);
             mDrawerLayout.closeDrawer(mDrawerListView);
-
         } else {
             Log.e("MainActivity", "Error in creating fragment");
         }

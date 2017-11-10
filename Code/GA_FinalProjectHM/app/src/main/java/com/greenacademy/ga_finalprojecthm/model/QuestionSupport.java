@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by GIT on 11/4/2017.
  */
 
-public class QuestionJSON implements Serializable{
+public class QuestionSupport implements Serializable{
     int Id;
     String NoiDungCauHoi;
     String TraLoi;

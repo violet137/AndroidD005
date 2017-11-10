@@ -9,31 +9,25 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.greenacademy.ga_finalprojecthm.SupportMethod;
+import com.greenacademy.ga_finalprojecthm.server.ParsingToModelFromJSON;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.adapter.QuestionSupportAdapter;
 import com.greenacademy.ga_finalprojecthm.asynctask.QuestionSupportAsyncTask;
-import com.greenacademy.ga_finalprojecthm.model.QuestionJSON;
-import com.greenacademy.ga_finalprojecthm.model.RootSupportJSON;
-import com.greenacademy.ga_finalprojecthm.util.IQuestionSupport;
+import com.greenacademy.ga_finalprojecthm.model.QuestionSupport;
+import com.greenacademy.ga_finalprojecthm.model.RootSupport;
+import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 
 import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CustomerFragment extends Fragment implements IQuestionSupport {
+public class CustomerFragment extends Fragment implements IReceiverJSON {
     ListView lvHelp;
     QuestionSupportAdapter adapterQuestionSupport;
-    ArrayList<QuestionJSON> questionJSON;
     QuestionSupportAsyncTask questionSupportAsyncTask;
-    RootSupportJSON rootSupportJSON;
-    ArrayList<QuestionJSON> arrayList;
-    IQuestionSupport iQuestionSupport;
-    //contrustor pass data qua cho  AnswerSupportFragment
-    public void setIAnswerQuestion(IQuestionSupport iAnswerQuestion){
-        this.iQuestionSupport =iAnswerQuestion;
-    }
+    RootSupport rootSupport;
+    ArrayList<QuestionSupport> questionArrayList;
     public CustomerFragment() {
         // Required empty public constructor
     }
@@ -44,7 +38,7 @@ public class CustomerFragment extends Fragment implements IQuestionSupport {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_customer, container, false);
-        lvHelp = (ListView) view.findViewById(R.id.lvHelp);
+        lvHelp = view.findViewById(R.id.lvHelp);
         questionSupportAsyncTask = new QuestionSupportAsyncTask(getActivity());
         questionSupportAsyncTask.setiQuestionSupport(this);
         questionSupportAsyncTask.execute();
@@ -52,25 +46,23 @@ public class CustomerFragment extends Fragment implements IQuestionSupport {
     }
 
     @Override
-    public void GetQuestionSupport(final ArrayList<String> stringArrayList) {
-        //arraylist chua question
-        rootSupportJSON = SupportMethod.parsetoQuestion(stringArrayList.get(0));
-        arrayList = rootSupportJSON.getCauHoiTranfers();
-        questionJSON = new ArrayList<QuestionJSON>();
-        adapterQuestionSupport = new QuestionSupportAdapter(getActivity(), R.layout.item_questionsupport, arrayList);
+    public void getStringJSON(String strJSON) {
+        rootSupport = ParsingToModelFromJSON.parseToQuestion(strJSON);
+        questionArrayList = rootSupport.getCauHoiTranfers();
+        adapterQuestionSupport = new QuestionSupportAdapter(getActivity(), R.layout.item_questionsupport, questionArrayList);
         lvHelp.setAdapter(adapterQuestionSupport);
         lvHelp.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Bundle b = new Bundle();
+                b.putString("question", questionArrayList.get(i).getNoiDungCauHoi());
+                b.putString("answer", questionArrayList.get(i).getTraLoi());
+                AnswerSupportFragment answerSupportFragment = new AnswerSupportFragment();
+                answerSupportFragment.setArguments(b);
+                //chuyên tu activity qua DetailFragment
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, new AnswerSupportFragment())
-                        .commit();
-                ArrayList<String> temp = new ArrayList<>();
-                temp.add(arrayList.get(position).getNoiDungCauHoi());
-                temp.add(arrayList.get(position).getTraLoi());
-                iQuestionSupport.GetQuestionSupport(temp);
+                        .replace(R.id.content_frame, answerSupportFragment, "Answer").commit();
             }
         });
     }

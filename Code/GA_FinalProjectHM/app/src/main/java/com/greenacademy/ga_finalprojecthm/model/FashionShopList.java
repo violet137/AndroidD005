@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by GIT on 9/21/2017.
  */
 
-public class FashionShopList {
+public class FashionShopList extends ArrayList<FashionShopList> {
     ArrayList<FashionShop> CuaHangTranfers = new ArrayList<>();
     int status;
     String Description;

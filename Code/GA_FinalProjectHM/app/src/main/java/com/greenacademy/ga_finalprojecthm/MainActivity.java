@@ -1,5 +1,11 @@
 package com.greenacademy.ga_finalprojecthm;
 
+
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -103,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
             case 1:
 //                fragment = new FacebookLoginFragment();
                 break;
+
+
             //fragment Men products
             case 2:
 //                fragment = new MapFragment();
@@ -128,8 +136,10 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new SupportFragment();
                 break;
             //fragment Find a Store
+
             case 8:
                 fragment = new MapFragment();
+
                 break;
             //fragment Newsletter
             case 9:

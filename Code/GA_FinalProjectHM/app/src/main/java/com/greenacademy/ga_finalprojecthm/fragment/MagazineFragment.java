@@ -66,7 +66,8 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
         rvLoaiTapChi.setHasFixedSize(true);
         rvLoaiTapChi.setLayoutManager(layoutManager);
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvLoaiTapChi.getContext(), DividerItemDecoration.HORIZONTAL);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rvLoaiTapChi.getContext(),
+                DividerItemDecoration.HORIZONTAL);
         Drawable drawable = ContextCompat.getDrawable(getActivity(), R.drawable.rv_magazine_custom);
         dividerItemDecoration.setDrawable(drawable);
         rvLoaiTapChi.addItemDecoration(dividerItemDecoration);
@@ -97,4 +98,5 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
                 .replace(R.id.content_frame, chiTietTapChiFragment)
                 .commit();
     }
+
 }

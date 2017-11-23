@@ -64,12 +64,19 @@ public class GoogleSignInFragment extends Fragment implements View.OnClickListen
                 .enableAutoManage(getActivity() /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
-
         btnSignIn.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
         return view;
     }
 
+    //dùng để sửa error: Already managing a GoogleApiClient with id 0
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        mGoogleApiClient.stopAutoManage(getActivity());
+        mGoogleApiClient.disconnect();
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -144,10 +151,5 @@ public class GoogleSignInFragment extends Fragment implements View.OnClickListen
     }
 
     //dùng để sửa error: Already managing a GoogleApiClient with id 0
-    @Override
-    public void onPause() {
-        super.onPause();
-        mGoogleApiClient.stopAutoManage(getActivity());
-        mGoogleApiClient.disconnect();
-    }
+
 }

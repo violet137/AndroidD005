@@ -16,6 +16,25 @@
         android:textSize="15sp"
         android:textStyle="bold" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <AutoCompleteTextView
+            android:id="@+id/svMap"
+            android:layout_width="322dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/btnMyLocate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:src="@drawable/store_locator_search_position_button_normal" />
+    </LinearLayout>
+
     <ViewSwitcher
         android:id="@+id/vsMap"
         android:layout_width="match_parent"
@@ -26,10 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <AutoCompleteTextView
-                android:id="@+id/svMap"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
         </com.google.android.gms.maps.MapView>
 
         <android.support.v7.widget.RecyclerView

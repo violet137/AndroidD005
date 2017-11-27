@@ -151,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).addToBackStack(null).commit();
 
             mDrawerListView.setItemChecked(position, true);
             mDrawerListView.setSelection(position);

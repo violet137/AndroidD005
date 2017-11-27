@@ -120,6 +120,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, new GoogleSignInFragment())
+                        .addToBackStack(null)
                         .commit();
                 break;
         }

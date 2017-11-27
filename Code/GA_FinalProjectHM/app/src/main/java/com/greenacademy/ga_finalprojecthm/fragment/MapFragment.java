@@ -1,12 +1,11 @@
 package com.greenacademy.ga_finalprojecthm.fragment;
 
 
-import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -15,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
+import android.Manifest;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -26,21 +26,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.location.LocationSettingsStates;
+import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -52,7 +55,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import com.greenacademy.ga_finalprojecthm.Manifest;
 import com.greenacademy.ga_finalprojecthm.adapter.CustomInfoWindowAdapter;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 import com.greenacademy.ga_finalprojecthm.R;
@@ -67,6 +69,8 @@ import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
 import java.io.IOException;
 import java.util.List;
 
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,27 +78,31 @@ import java.util.List;
 
 public class MapFragment extends Fragment implements OnMapReadyCallback,
         GoogleMap.OnMarkerClickListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, IReceiverJSON, GoogleMap.OnInfoWindowClickListener {
+        GoogleApiClient.OnConnectionFailedListener, IReceiverJSON, GoogleMap.OnInfoWindowClickListener,
+        LocationListener {
 
-    private static final int MY_LOCATION_REQUEST_CODE = -1;
+    private static final int PERMISSION_REQUEST_CODE_LOCATION = 1;
+    int REQUEST_CHECK_SETTINGS  = 1000;
+    private static final int MENU_STORE = Menu.FIRST;
     ShopAdapter shopAdapter;
     RecyclerView rcvList;
     ViewSwitcher vsMap;
     GoogleMap mGoogleMap;
     MapView mMapview;
     View mView;
+    ImageButton btnMyLocate;
     SearchView svMap;
-    private static final int MENU_STORE = Menu.FIRST;
     //
-    private LocationRequest locationRequest;
-    private Marker currentLocationmMarker;
+    Location lastLocation;
+    LocationRequest locationRequest;
+    Marker currentLocationmMarker;
     double latitude, longitude;
     LocationManager locationManager;
     LocationListener locationListener;
-    TextView tvLocate;
     FashionShop store;
     FashionShopList fashionShopList = new FashionShopList();
     FashionShopListASyncTask fashionShopListASyncTask;
+    GoogleApiClient googleApiClient;
 
     public MapFragment() {
         // Required empty public constructor
@@ -108,26 +116,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         rcvList = mView.findViewById(R.id.rcvList);
         vsMap = mView.findViewById(R.id.vsMap);
         mMapview = mView.findViewById(R.id.mapView);
-        svMap = mView.findViewById(R.id.svMap);
+        btnMyLocate = mView.findViewById(R.id.btnMyLocate);
         //
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new LocationListener() {
+        requestPermission(PERMISSION_REQUEST_CODE_LOCATION,getApplicationContext(), this);
+        btnMyLocate.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onLocationChanged(Location location) {
-                tvLocate.append("\n " + location.getLatitude() + " " + location.getLongitude());
-            }
+            public void onClick(View v) {
+                Toast.makeText(getContext(), "Button Pressed.!", Toast.LENGTH_SHORT).show();
 
-        };
-        //
-        svMap.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
+                try {
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+                    googleApiClient = new GoogleApiClient.Builder(getContext())
+                            .addApi(LocationServices.API)
+                            .addConnectionCallbacks(MapFragment.this)
+                            .addOnConnectionFailedListener(MapFragment.this)
+                            .build();
+
+                    locationRequest = LocationRequest.create();
+                    locationRequest.setInterval(1000);
+
+                    locationRequest.setFastestInterval(1000);
+                    locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+
+                    checkForLocationReuqestSetting(locationRequest);
+                    googleApiClient.connect();
+
+                } catch (SecurityException ex) {
+                    ex.printStackTrace();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
         //
@@ -138,6 +156,93 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 LinearLayoutManager.VERTICAL, false));
         //
         return mView;
+    }
+
+    private void requestPermission(int permissionRequestCodeLocation, Context applicationContext, MapFragment mapFragment) {
+        String fineLocationPermissionString = Manifest.permission.ACCESS_FINE_LOCATION;
+        String coarseLocationPermissionString = Manifest.permission.ACCESS_COARSE_LOCATION;
+
+        if  (   ContextCompat.checkSelfPermission(getContext(), fineLocationPermissionString) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission(getContext(), coarseLocationPermissionString) != PackageManager.PERMISSION_GRANTED
+                ) {
+
+            //user has already cancelled the permission prompt. we need to advise him.
+            if (ActivityCompat.shouldShowRequestPermissionRationale(getActivity(),fineLocationPermissionString)){
+                Toast.makeText(applicationContext,"We must need your permission in order to access your reporting location.",Toast.LENGTH_LONG).show();
+            }
+
+            ActivityCompat.requestPermissions(getActivity(),new String[]{fineLocationPermissionString, coarseLocationPermissionString},permissionRequestCodeLocation);
+
+        }
+    }
+
+    private void checkForLocationReuqestSetting(LocationRequest locationRequest) {
+        try {
+            LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
+                    .addLocationRequest(locationRequest);
+
+            PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+
+            result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
+                @Override
+                public void onResult(@NonNull LocationSettingsResult locationSettingsResult) {
+                    final Status status = locationSettingsResult.getStatus();
+                    final LocationSettingsStates locationSettingsStates = locationSettingsResult.getLocationSettingsStates();
+
+                    switch (status.getStatusCode()) {
+                        case LocationSettingsStatusCodes.SUCCESS:
+                            // All location settings are satisfied. The client can
+                            // initialize location requests here.
+                            Log.d("MainActivity", "onResult: SUCCESS");
+                            break;
+                        case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
+                            Log.d("MainActivity", "onResult: RESOLUTION_REQUIRED");
+                            // Location settings are not satisfied, but this can be fixed
+                            // by showing the user a dialog.
+                            try {
+                                // Show the dialog by calling startResolutionForResult(),
+                                // and check the result in onActivityResult().
+                                status.startResolutionForResult(
+                                        (Activity) getContext(),
+                                        REQUEST_CHECK_SETTINGS);
+                            } catch (IntentSender.SendIntentException e) {
+                                // Ignore the error.
+                            }
+                            break;
+                        case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
+                            Log.d("MainActivity", "onResult: SETTINGS_CHANGE_UNAVAILABLE");
+                            // Location settings are not satisfied. However, we have no way
+                            // to fix the settings so we won't show the dialog.
+
+                            break;
+                    }
+                }
+            });
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        for (String per : permissions) {
+            System.out.println("permissions are  " + per);
+        }
+
+        switch (requestCode) {
+
+            case PERMISSION_REQUEST_CODE_LOCATION:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    Toast.makeText(getContext(), "Permission loaded...", Toast.LENGTH_SHORT).show();
+
+                } else {
+
+                    Toast.makeText(getApplicationContext(),"Permission Denied, You cannot access location data.",Toast.LENGTH_LONG).show();
+
+                }
+                break;
+        }
     }
 
     @Override
@@ -173,7 +278,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                     .title(cuaHang.getName()));
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(new LatLng(10.7, 106.6)).zoom(10).bearing(0).tilt(45).build();
-            marker.setTag(cuaHang);
+            // tạo infoWindow cho marker
             CustomInfoWindowAdapter infoWindowAdapter = new CustomInfoWindowAdapter(this,fashionShopList.getCuaHangTranfers());
             mGoogleMap.setInfoWindowAdapter(infoWindowAdapter);
             marker.showInfoWindow();
@@ -193,25 +298,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        locationRequest = new LocationRequest();
-        locationRequest.setInterval(100);
-        locationRequest.setFastestInterval(1000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
-
-
-//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION ) == PackageManager.PERMISSION_GRANTED)
-//        {
-//            LocationServices.FusedLocationApi.requestLocationUpdates(client, locationRequest, (LocationListener) this);
-//        }
+        try {
+            lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
+            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, (LocationListener) this);
+            if (lastLocation != null) {
+                CameraPosition lastPosition = CameraPosition.builder()
+                        .target(new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude())).zoom(10).bearing(0).tilt(45).build();
+                mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(lastPosition));
+            }
+        } catch (SecurityException ex) {
+            ex.printStackTrace();
+        }
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        System.out.println("onConnectionSuspended called...");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        System.out.println("onConnectionFailed called.");
         fashionShopListASyncTask = new FashionShopListASyncTask();
         fashionShopListASyncTask.iCallBack(this);
         fashionShopListASyncTask.execute();
@@ -272,6 +379,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     @Override
     public void onInfoWindowClick(Marker marker) {
         shopAdapter.storeDialog(store).show();
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
     }
 
 //    @Override

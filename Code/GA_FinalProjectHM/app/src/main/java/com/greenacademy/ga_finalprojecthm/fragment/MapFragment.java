@@ -49,6 +49,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
@@ -88,7 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     RecyclerView rcvList;
     ViewSwitcher vsMap;
     GoogleMap mGoogleMap;
-    MapView mMapview;
+//    MapView mMapview;
     View mView;
     ImageButton btnMyLocate;
     SearchView svMap;
@@ -115,7 +116,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         mView = inflater.inflate(R.layout.fragment_map, container, false);
         rcvList = mView.findViewById(R.id.rcvList);
         vsMap = mView.findViewById(R.id.vsMap);
-        mMapview = mView.findViewById(R.id.mapView);
+//        mMapview = mView.findViewById(R.id.mapView);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.mapShop);
+//        mMapview.onCreate(savedInstanceState);
+        mapFragment.getMapAsync(this);
         btnMyLocate = mView.findViewById(R.id.btnMyLocate);
         //
         requestPermission(PERMISSION_REQUEST_CODE_LOCATION,getApplicationContext(), this);
@@ -148,9 +152,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                 }
             }
         });
-        //
-        mMapview.onCreate(savedInstanceState);
-        mMapview.getMapAsync(this);
         //
         rcvList.setLayoutManager(new LinearLayoutManager(getContext(),
                 LinearLayoutManager.VERTICAL, false));

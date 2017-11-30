@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     MapFragment context;
     ArrayList<FashionShop> fashionShopList;
-
+//    FashionShopList fashionShopList;
     public CustomInfoWindowAdapter(MapFragment context,ArrayList<FashionShop> fashionShopList){
         this.context = context;
         this.fashionShopList = fashionShopList;
@@ -47,11 +47,11 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         tviStyle = v.findViewById(R.id.tviStyle);
         tviDistance = v.findViewById(R.id.tviDistance);
         //
-//          FashionShop store = marker.getPosition();
-          ivApp.setImageResource(R.drawable.app_logo);
-          tviName.setText(marker.getTitle());
-          tviAddress.setText(marker.getSnippet());
-//          tviStyle.setText(store.getStyle());
+        FashionShop store = (FashionShop) marker.getTag();
+        ivApp.setImageResource(R.drawable.app_logo);
+        tviName.setText(store.getName());
+        tviAddress.setText(store.getAddress());
+        tviStyle.setText(store.getStyle());
 //          tviDistance.setText(store.getDistance());
     return v;
     }

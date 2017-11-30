@@ -46,7 +46,6 @@ import com.google.android.gms.location.LocationSettingsStates;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -60,15 +59,11 @@ import com.greenacademy.ga_finalprojecthm.adapter.CustomInfoWindowAdapter;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.adapter.ShopAdapter;
-import com.greenacademy.ga_finalprojecthm.asynctask.AsyncTaskShop;
 import com.greenacademy.ga_finalprojecthm.model.FashionShop;
 
 import com.greenacademy.ga_finalprojecthm.server.ParsingToModelFromJSON;
 import com.greenacademy.ga_finalprojecthm.asynctask.FashionShopListASyncTask;
 import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
-
-import java.io.IOException;
-import java.util.List;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 
@@ -94,7 +89,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     ImageButton btnMyLocate;
     SearchView svMap;
     //
-    Location lastLocation;
     LocationRequest locationRequest;
     Marker currentLocationmMarker;
     double latitude, longitude;
@@ -103,7 +97,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     FashionShop store;
     FashionShopList fashionShopList = new FashionShopList();
     FashionShopListASyncTask fashionShopListASyncTask;
-    GoogleApiClient googleApiClient;
+    GoogleApiClient mGoogleApiClient;
+    Location mLastLocation;
 
     public MapFragment() {
         // Required empty public constructor
@@ -126,11 +121,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         btnMyLocate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(), "Button Pressed.!", Toast.LENGTH_SHORT).show();
-
                 try {
 
-                    googleApiClient = new GoogleApiClient.Builder(getContext())
+                    mGoogleApiClient = new GoogleApiClient.Builder(getContext())
                             .addApi(LocationServices.API)
                             .addConnectionCallbacks(MapFragment.this)
                             .addOnConnectionFailedListener(MapFragment.this)
@@ -142,8 +135,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                     locationRequest.setFastestInterval(1000);
                     locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
 
-                    checkForLocationReuqestSetting(locationRequest);
-                    googleApiClient.connect();
+                    checkForLocationRequestSetting(locationRequest);
+                    mGoogleApiClient.connect();
+                    mGoogleMap.setMyLocationEnabled(true);
+                    store.getMyCurrentLocation(mLastLocation,mGoogleMap,mGoogleApiClient);
 
                 } catch (SecurityException ex) {
                     ex.printStackTrace();
@@ -177,12 +172,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
         }
     }
 
-    private void checkForLocationReuqestSetting(LocationRequest locationRequest) {
+    private void checkForLocationRequestSetting(LocationRequest locationRequest) {
         try {
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
                     .addLocationRequest(locationRequest);
 
-            PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(googleApiClient, builder.build());
+            PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
 
             result.setResultCallback(new ResultCallback<LocationSettingsResult>() {
                 @Override
@@ -261,10 +256,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public boolean onMarkerClick(Marker marker) {
-        int position = (Integer) marker.getTag();
-        store = fashionShopList.getCuaHangTranfers().get(position);
-        store.getName();
-        store.getAddress();
         return false;
     }
 
@@ -280,11 +271,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
             CameraPosition cameraPosition = CameraPosition.builder()
                     .target(new LatLng(10.7, 106.6)).zoom(10).bearing(0).tilt(45).build();
             // tạo infoWindow cho marker
+            marker.setTag(cuaHang);
             CustomInfoWindowAdapter infoWindowAdapter = new CustomInfoWindowAdapter(this,fashionShopList.getCuaHangTranfers());
             mGoogleMap.setInfoWindowAdapter(infoWindowAdapter);
             marker.showInfoWindow();
             mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            marker.setTag(i);
         }
         //tạo viền cho Recycler View
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(rcvList.getContext(),
@@ -298,19 +289,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     }
 
     @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        try {
-            lastLocation = LocationServices.FusedLocationApi.getLastLocation(googleApiClient);
-            LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, (LocationListener) this);
-            if (lastLocation != null) {
-                CameraPosition lastPosition = CameraPosition.builder()
-                        .target(new LatLng(lastLocation.getLatitude(),lastLocation.getLongitude())).zoom(10).bearing(0).tilt(45).build();
-                mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(lastPosition));
-            }
-        } catch (SecurityException ex) {
-            ex.printStackTrace();
-        }
-    }
+    public void onConnected(@Nullable Bundle bundle) {}
 
     @Override
     public void onConnectionSuspended(int i) {
@@ -379,6 +358,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onInfoWindowClick(Marker marker) {
+//        int position = (Integer) marker.getTag();
+//        store = fashionShopList.getCuaHangTranfers().get(position);
+//        store.getName();
+//        store.getAddress();
+        store = (FashionShop) marker.getTag();
         shopAdapter.storeDialog(store).show();
     }
 

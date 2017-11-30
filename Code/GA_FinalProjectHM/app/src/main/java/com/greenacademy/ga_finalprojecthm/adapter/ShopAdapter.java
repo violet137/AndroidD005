@@ -46,7 +46,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopHolder> {
     public void onBindViewHolder(ShopHolder holder, final int position) {
         fashionShop = fashionShopList.get(position);
         holder.name.setText(fashionShop.getName());
-//        holder.distance.setText();
+//        holder.distance.setText(fashionShop.getDistance(fashionShop.getLat(),fashionShop.getLng()).toString());
         holder.address.setText(fashionShop.getAddress());
         holder.style.setText(fashionShop.getStyle());
         holder.evaluate.setText(fashionShop.getEvaluate().toString());

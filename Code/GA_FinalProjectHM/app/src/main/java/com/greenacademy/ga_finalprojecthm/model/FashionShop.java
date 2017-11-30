@@ -1,6 +1,7 @@
 package com.greenacademy.ga_finalprojecthm.model;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -11,10 +12,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,31 +34,29 @@ public class FashionShop {
     String name, address, style;
     Double lat, lng, evaluate;
     double latitude,longitude;
-    Context context;
+    Location mLastLocation;
+    GoogleMap mGoogleMap;
     GoogleApiClient mGoogleApiClient;
 
-    public Location getLocation(Context context) {
-        this.context = context;
-        LocationRequest mLocationRequest = new LocationRequest();
-        mLocationRequest.setInterval(10000);
-        mLocationRequest.setFastestInterval(5000);
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-
-        LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder()
-                .addLocationRequest(mLocationRequest);
-
-        PendingResult<LocationSettingsResult> result =
-                LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
-
-        try {
-            Location mLastLocation = LocationServices.FusedLocationApi
-                .getLastLocation(mGoogleApiClient);
-
-            return mLastLocation;
-        } catch (SecurityException e) {
-            e.printStackTrace();
+    @SuppressLint("MissingPermission")
+    public Location getMyCurrentLocation(Location mLastLocation,GoogleMap mGoogleMap,GoogleApiClient mGoogleApiClient) {
+//        LatLng currentLocation = null;
+        this.mLastLocation = mLastLocation;
+        this.mGoogleApiClient = mGoogleApiClient;
+        this.mGoogleMap = mGoogleMap;
+        @SuppressLint("MissingPermission") LocationAvailability locationAvailability =
+                LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
+        if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
+            // 3
+            mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+            // 4
+            if (mLastLocation != null) {
+                LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
+                        .getLongitude());
+                mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+            }
         }
-        return null;
+        return mLastLocation;
     }
 
     public Double getDistance(double latA, double lngA) {
@@ -62,9 +65,9 @@ public class FashionShop {
         locationA.setLatitude(latA);
         locationA.setLongitude(lngA);
 
-        Location locationB = new Location("Point B");
-        locationB.setLatitude(latitude);
-        locationB.setLongitude(longitude);
+        Location locationB =new Location("Point B");
+        locationB.setLatitude(getMyCurrentLocation(mLastLocation,mGoogleMap,mGoogleApiClient).getLatitude());
+        locationB.setLongitude(getMyCurrentLocation(mLastLocation,mGoogleMap,mGoogleApiClient).getLongitude());
 
 //        distance = locationA.distanceTo(locationB);   // in meters
         distance = locationA.distanceTo(locationB) / 1000; // in km

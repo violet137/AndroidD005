@@ -21,10 +21,11 @@ import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
 import com.greenacademy.ga_finalprojecthm.fragment.MagazineFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MyHMFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.SanPhamFragment.SanPhamFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.SupportFragment;
 import com.greenacademy.ga_finalprojecthm.model.DataIcon;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     private String[] mNavigationDrawerItemTitles;
     private DrawerLayout mDrawerLayout;
@@ -97,19 +98,26 @@ public class MainActivity extends AppCompatActivity {
         switch (position) {
             //fragment all products
             case 0:
+
 //                fragment = new GoogleSignInFragment();
                 break;
             //fragment Ladies products
             case 1:
-//                fragment = new FacebookLoginFragment();
+                SanPhamFragment sanPhamFragment=new SanPhamFragment();
+                sanPhamFragment.Click("Nu");
+               fragment = sanPhamFragment;
                 break;
             //fragment Men products
             case 2:
-//                fragment = new MapFragment();
+                SanPhamFragment sanPhamFragment1=new SanPhamFragment();
+                sanPhamFragment1.Click("Nam");
+                fragment = sanPhamFragment1;
                 break;
             //fragment Kids products
             case 3:
-//                fragment = new MapFragment();
+                SanPhamFragment sanPhamFragment2=new SanPhamFragment();
+                sanPhamFragment2.Click("TreEm");
+                fragment = sanPhamFragment2 ;
                 break;
             //fragment Magazine
             case 4:
@@ -207,4 +215,7 @@ public class MainActivity extends AppCompatActivity {
         //This is necessary to change the icon of the Drawer Toggle upon state change.
         mDrawerToggle.syncState();
     }
+
+
+
 }

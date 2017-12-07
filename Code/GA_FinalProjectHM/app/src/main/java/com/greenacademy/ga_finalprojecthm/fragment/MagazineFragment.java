@@ -81,6 +81,7 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
         //lay loai tap chi khi nhan vao loai tap chi tren recycler view
         adapter.setLoaiTapChi(this);
         rvLoaiTapChi.setAdapter(adapter);
+
     }
 
     @Override

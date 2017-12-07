@@ -81,7 +81,7 @@ public class AsynTaskTapChi extends AsyncTask<String , Void , String> {
                 String LoaiTapChi = JsonTapChi.getString("LoaiTapChi");
                 String Ten = JsonTapChi.getString("Ten");
                 String MoTa = JsonTapChi.getString("MoTa");
-                String LinkHinh = JsonTapChi.getString("LinkHinh");
+                String LinkHinh = JsonTapChi.getString("HinhByColor");
 
                 TapChiJson tapChiJson = new TapChiJson();
                 tapChiJson.setIdTapChi(IdTapChi);

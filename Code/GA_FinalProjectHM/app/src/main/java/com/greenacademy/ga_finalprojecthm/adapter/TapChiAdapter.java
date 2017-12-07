@@ -30,7 +30,8 @@ public class TapChiAdapter extends RecyclerView.Adapter<TapChiAdapter.ViewHolder
             onTapChiSelected = (OnTapChiSelected) fragment;
         } else {
             throw new ClassCastException(fragment.toString() +
-                    " must implement OnTapChiSelected.");}
+                    " must implement OnTapChiSelected.");
+        }
     }
 
     @Override

@@ -3,4 +3,16 @@
     <color name="colorPrimary">#303F9F</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#ff4081</color>
+    <color name='Den'>#000000</color>
+    <color name="Trang">#FFFFFF</color>
+    <color name="Vang">#FFFF00</color>
+    <color name="Cam">#FF8000</color>
+    <color name="Do">#FF0000</color>
+    <color name="XanhDuong">#0000FF</color>
+    <color name="XanhLa">#40FF00</color>
+    <color name="Nau">#3B170B</color>
+    <color name="Xam">#585858</color>
+    <color name="Tim">#8904B1</color>
+    <color name="Hong">#FE2EF7</color>
+    <color name="Reu">#21610B</color>
 </resources>

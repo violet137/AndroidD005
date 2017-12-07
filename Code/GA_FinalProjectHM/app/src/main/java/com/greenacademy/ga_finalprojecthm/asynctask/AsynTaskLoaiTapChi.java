@@ -34,7 +34,7 @@ public class AsynTaskLoaiTapChi extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... data) {
         try {
-            URL url = new URL("http://tamod.vn:8050/api/TapChi/LoaiThoiTrang");
+            URL url = new URL("http://35.227.90.131:9001/api/TapChi/LoaiThoiTrang");
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //config server trả về kiểu ...
             connection.addRequestProperty("Accept", "text/json");

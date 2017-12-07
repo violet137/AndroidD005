@@ -27,7 +27,7 @@ public class RegisterAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            URL url  = new URL("http://tamod.vn:8050/api/Auth/Register");
+            URL url  = new URL("http://103.237.147.137:8050/api/Auth/Register");
             //tạo connect lên server qua hàm openConnection
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //config giao thức truyền lên server

@@ -1,11 +1,15 @@
 package com.greenacademy.ga_finalprojecthm.server;
 
+import com.greenacademy.ga_finalprojecthm.model.ChiTietKhuyenMaiJSON;
 import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
 import com.greenacademy.ga_finalprojecthm.model.FashionShop;
+import com.greenacademy.ga_finalprojecthm.model.KhuyenMaiJson;
 import com.greenacademy.ga_finalprojecthm.model.LoaiHoTro;
 import com.greenacademy.ga_finalprojecthm.model.LoaiTapChiJson;
 import com.greenacademy.ga_finalprojecthm.model.LoginDetails;
 import com.greenacademy.ga_finalprojecthm.model.QuestionSupport;
+import com.greenacademy.ga_finalprojecthm.model.RootChiTietKhuyenMai;
+import com.greenacademy.ga_finalprojecthm.model.RootKhuyenMai;
 import com.greenacademy.ga_finalprojecthm.model.RootLoaiHoTro;
 import com.greenacademy.ga_finalprojecthm.model.RootLoaiTapChi;
 import com.greenacademy.ga_finalprojecthm.model.RootSupport;
@@ -186,4 +190,96 @@ public class ParsingToModelFromJSON {
         }
         return rootChiTietTapChi;
     }
+
+    public static RootKhuyenMai parseToKhuyenMai(String strJSON) {
+        RootKhuyenMai rootKhuyenMai = new RootKhuyenMai();
+        try {
+            JSONObject rootJSON = new JSONObject(strJSON);
+
+            int Status = rootJSON.getInt("Status");
+            String Description = rootJSON.getString("Description");
+
+            rootKhuyenMai.setStatus(Status);
+            rootKhuyenMai.setDescription(Description);
+
+            JSONArray ListKhuyenMaiJSON = rootJSON.getJSONArray("KhuyenMaiTranfers");
+            for (int i = 0; i < ListKhuyenMaiJSON.length(); i++) {
+                JSONObject JSONKhuyenMai = ListKhuyenMaiJSON.getJSONObject(i);
+                int IdKhuyenMai = JSONKhuyenMai.getInt("Id");
+                String TenKhuyenMai = JSONKhuyenMai.getString("Ten");
+                String HinhDaiDien = JSONKhuyenMai.getString("HinhDaiDien");
+
+                KhuyenMaiJson khuyenMaiJson = new KhuyenMaiJson();
+                khuyenMaiJson.setIdKhuyenMai(IdKhuyenMai);
+                khuyenMaiJson.setTenKhuyenMai(TenKhuyenMai);
+                khuyenMaiJson.setHinhDaiDien(HinhDaiDien);
+
+                rootKhuyenMai.getKhuyenMaiTranfers().add(khuyenMaiJson);
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rootKhuyenMai;
+    }
+
+    public static RootChiTietKhuyenMai parseToChiTietKhuyenMai(String strJSON) {
+        RootChiTietKhuyenMai rootChiTietKhuyenMai = new RootChiTietKhuyenMai();
+        try {
+            JSONObject rootJSON = new JSONObject(strJSON);
+            int Status = rootJSON.getInt("Status");
+            String Description = rootJSON.getString("Description");
+            int id = rootJSON.getInt("Id");
+            String TenCTKM = rootJSON.getString("Ten");
+            String HinhCTKM = rootJSON.getString("HinhDaiDien");
+            String MoTaCTKM = rootJSON.getString("Mota");
+
+            rootChiTietKhuyenMai.setStatus(Status);
+            rootChiTietKhuyenMai.setDescription(Description);
+            rootChiTietKhuyenMai.setId(id);
+            rootChiTietKhuyenMai.setTenCTKM(TenCTKM);
+            rootChiTietKhuyenMai.setHinhCTKM(HinhCTKM);
+            rootChiTietKhuyenMai.setMoTaCTKM(MoTaCTKM);
+
+            JSONArray ListCTKMJSON = rootJSON.getJSONArray("ListSanPham");
+            for (int i = 0; i < ListCTKMJSON.length(); i++) {
+                JSONObject JSONCTKM = ListCTKMJSON.getJSONObject(i);
+                String TenSPCTKM = JSONCTKM.getString("Ten");
+                String MoTaSPCTKM = JSONCTKM.getString("MoTa");
+                //String LinkHinhCTKM = JSONCTKM.getString("LinkHinh");
+
+                ChiTietKhuyenMaiJSON chiTietKhuyenMaiJSON = new ChiTietKhuyenMaiJSON();
+                chiTietKhuyenMaiJSON.setTenSP(TenSPCTKM);
+                chiTietKhuyenMaiJSON.setMoTaSp(MoTaSPCTKM);
+                //chiTietKhuyenMaiJSON.setLinkHinh(LinkHinhCTKM);
+
+                rootChiTietKhuyenMai.getListSP().add(chiTietKhuyenMaiJSON);
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rootChiTietKhuyenMai;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

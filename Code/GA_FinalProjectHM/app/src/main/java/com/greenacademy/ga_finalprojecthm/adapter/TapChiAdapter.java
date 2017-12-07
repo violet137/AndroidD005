@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.model.RootTapChi;
 import com.greenacademy.ga_finalprojecthm.util.OnTapChiSelected;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by HoangHai Nguyen on 11/5/2017.
@@ -45,6 +46,11 @@ public class TapChiAdapter extends RecyclerView.Adapter<TapChiAdapter.ViewHolder
         //holder.imgTapChi.setImage
         holder.tvTenTapChi.setText(rootTapChi.getTapChiTranfers().get(position).getTen());
         holder.tvMoTaTapChi.setText(rootTapChi.getTapChiTranfers().get(position).getMoTa());
+//        Picasso.with()
+//                .load(rootTapChi.getTapChiTranfers().get(position).getLinkHinh())
+//                .placeholder(R.drawable.icon_camera)
+//                .error(R.drawable.icon_error)
+//                .into(holder.imgTapChi);
         holder.llTapChi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

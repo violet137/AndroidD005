@@ -32,7 +32,7 @@ public class QuestionSupportAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... data) {
         try {
-            URL url = new URL("http://tamod.vn:8050/api/HoTro/DanhSachCauHoi");
+            URL url = new URL("http://103.237.147.137/api/HoTro/DanhSachCauHoi");
             //tạo connect lên server
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //config server trả về data dang json

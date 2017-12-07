@@ -50,8 +50,6 @@ public class TapChiFragment extends Fragment implements ICallBack {
 
         rootTapChi = new RootTapChi();
 
-
-
         return view;
     }
 

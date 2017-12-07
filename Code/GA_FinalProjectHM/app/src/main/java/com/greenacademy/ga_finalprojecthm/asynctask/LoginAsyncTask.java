@@ -31,7 +31,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... strings) {
         try {
-            URL url = new URL("http://tamod.vn:8050/api/Auth/Login");
+            URL url = new URL("http://103.237.147.137:8050/api/Auth/Login");
             try {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.addRequestProperty("Accept", "text/json");

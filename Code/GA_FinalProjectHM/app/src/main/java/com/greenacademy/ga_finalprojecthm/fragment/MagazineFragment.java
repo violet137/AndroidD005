@@ -89,7 +89,6 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
         tapChiFragment.loadData(loaiTapChi);
     }
 
-    //Nhảy qua fragment chi tiết tạp chí, được bắn từ Tạp Chí Adapter
     @Override
     public void onTapChiSelected(int idTapChi) {
         ChiTietTapChiFragment chiTietTapChiFragment = new ChiTietTapChiFragment();

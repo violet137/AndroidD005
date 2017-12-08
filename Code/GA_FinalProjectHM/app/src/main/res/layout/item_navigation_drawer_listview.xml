@@ -2,16 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:background="?android:attr/activatedBackgroundIndicator"
-    android:minHeight="?android:attr/listPreferredItemHeightSmall" >
+    android:minHeight="?android:attr/listPreferredItemHeightSmall"
+    android:orientation="horizontal">
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:drawablePadding="@dimen/padding_textview_drawable"
+        android:gravity="center_vertical"
         android:paddingBottom="@dimen/padding_bottom_general"
         android:paddingEnd="@dimen/padding_end_general"
         android:paddingLeft="@dimen/padding_start_general"

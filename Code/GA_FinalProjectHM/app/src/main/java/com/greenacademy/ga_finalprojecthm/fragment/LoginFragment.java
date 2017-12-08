@@ -12,11 +12,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.common.SignInButton;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.asynctask.LoginAsyncTask;
+import com.greenacademy.ga_finalprojecthm.model.LoginDetails;
+import com.greenacademy.ga_finalprojecthm.server.ParsingToModelFromJSON;
+import com.greenacademy.ga_finalprojecthm.session.Session;
+import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,11 +37,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     //key cua share preferences
-    String USER= "UserName";
-    String PASS="Pass";
+//    String USER = "UserName";
+//    String PASS = "Pass";
     LoginButton btnFbLogin;
     SignInButton btnGoogleSignin;
-
 
     public LoginFragment() {
         // Required empty public constructor
@@ -46,7 +50,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_login, container, false);
+        View view = inflater.inflate(R.layout.fragment_login, container, false);
         //anh xa
         userName = view.findViewById(R.id.etUserName);
         passWord = view.findViewById(R.id.etPassword);
@@ -58,10 +62,10 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         btnFbLogin = view.findViewById(R.id.btnFbLogin);
         btnGoogleSignin = view.findViewById(R.id.btnGoogleSignin);
 
-        sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
-        //do du lieu trong preferences vao trong 2 edit text khi mo lai ung dung
-        userName.setText(sharedPreferences.getString(USER,""));
-        passWord.setText(sharedPreferences.getString(PASS,""));
+//        sharedPreferences = getActivity().getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
+//        //do du lieu trong preferences vao trong 2 edit text khi mo lai ung dung
+//        userName.setText(sharedPreferences.getString(USER, ""));
+//        passWord.setText(sharedPreferences.getString(PASS, ""));
 
         btnLogin.setOnClickListener(this);
         tvForgotPassword.setOnClickListener(this);
@@ -74,26 +78,48 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             //xu li nut login
             case R.id.btnLogin:
                 String name = userName.getText().toString();
                 String pass = passWord.getText().toString();
-                if(name.isEmpty() || pass.isEmpty()){
+                if (name.isEmpty() || pass.isEmpty()) {
                     txtWarring.setText(R.string.log_in_warning);
-                }
-                else {
+                } else {
                     loginAsyncTask = new LoginAsyncTask(getActivity());
                     loginAsyncTask.execute(name, pass);
+                    loginAsyncTask.setiReceiverJSON(new IReceiverJSON() {
+                        @Override
+                        public void getStringJSON(String strJSON) {
+                            if (strJSON.equals(getResources().getString(R.string.server_error))) {
+                                Toast.makeText(getActivity(), R.string.server_error, Toast.LENGTH_SHORT).show();
+                            } else {
+                                LoginDetails login = ParsingToModelFromJSON.parseToLoginDetails(strJSON);
+                                if (login.getStatus() == 1) {
+                                    Toast.makeText(getActivity(), R.string.log_in_successfully, Toast.LENGTH_SHORT).show();
+                                    Session.isLogedIn = true;
+                                    getActivity().getSupportFragmentManager()
+                                            .beginTransaction()
+                                            .replace(R.id.content_frame, new MyHMFragment())
+                                            .addToBackStack(null)
+                                            .commit();
+                                } else {
+                                    Toast.makeText(getActivity(), R.string.log_in_failed, Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
                 }
                 //kiem tra check box
-                if(cbRememberMe.isChecked()){
-                    editor = sharedPreferences.edit();
-                    //luu du lieu vao share preferences
-                    editor.putString(USER,userName.getText().toString());
-                    editor.putString(PASS,passWord.getText().toString());
-//                    editor.commit();
-                    editor.apply();
+                if (cbRememberMe.isChecked()) {
+//                    editor = sharedPreferences.edit();
+//                    //luu du lieu vao share preferences
+//                    editor.putString(USER, userName.getText().toString());
+//                    editor.putString(PASS, passWord.getText().toString());
+////                    editor.commit();
+//                    editor.apply();
+                    Session.setUsername(userName.getText().toString());
+                    Session.setPassword(passWord.getText().toString());
                 }
                 break;
             // forgot password

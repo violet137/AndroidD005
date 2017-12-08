@@ -33,5 +33,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
     implementation 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile 'com.google.code.gson:gson:2.8.2'
 }
 apply plugin: 'com.google.gms.google-services'

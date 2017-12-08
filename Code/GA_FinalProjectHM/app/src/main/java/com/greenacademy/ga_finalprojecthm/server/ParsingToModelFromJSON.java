@@ -2,6 +2,8 @@ package com.greenacademy.ga_finalprojecthm.server;
 
 import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
 import com.greenacademy.ga_finalprojecthm.model.FashionShop;
+import com.greenacademy.ga_finalprojecthm.model.Home.FashionCatalog;
+import com.greenacademy.ga_finalprojecthm.model.Home.FashionCatalogResponse;
 import com.greenacademy.ga_finalprojecthm.model.LoaiHoTro;
 import com.greenacademy.ga_finalprojecthm.model.LoaiTapChiJson;
 import com.greenacademy.ga_finalprojecthm.model.LoginDetails;
@@ -185,5 +187,28 @@ public class ParsingToModelFromJSON {
             e.printStackTrace();
         }
         return rootChiTietTapChi;
+    }
+
+    public static FashionCatalogResponse parseToFashionCatalog(String strJSON){
+        FashionCatalogResponse fashionCatalogResponse = new FashionCatalogResponse();
+        try {
+            JSONObject fashionCatalogResponseJSON = new JSONObject(strJSON);
+
+            fashionCatalogResponse.setStatus(fashionCatalogResponseJSON.getInt("Status"));
+            fashionCatalogResponse.setDescription(fashionCatalogResponseJSON.getString("Description"));
+
+            JSONArray fashionCatalogsJSON = fashionCatalogResponseJSON.getJSONArray("LoaiThoiTrangTranfers");
+            for (int i = 0; i < fashionCatalogsJSON.length(); i++){
+                FashionCatalog fashionCatalog = new FashionCatalog();
+                fashionCatalog.setFashionCatalog(fashionCatalogsJSON.getJSONObject(i).getString("loaiThoiTrang"));
+                fashionCatalog.setFashionCatalogName(fashionCatalogsJSON.getJSONObject(i).getString("Ten"));
+                fashionCatalog.setLinkImage(fashionCatalogsJSON.getJSONObject(i).getString("LinkHinh"));
+
+                fashionCatalogResponse.getFashionCatalogs().add(fashionCatalog);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return fashionCatalogResponse;
     }
 }

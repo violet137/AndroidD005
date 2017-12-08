@@ -1,11 +1,10 @@
 package com.greenacademy.ga_finalprojecthm.asynctask;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.greenacademy.ga_finalprojecthm.model.LoginDetails;
-import com.greenacademy.ga_finalprojecthm.server.ParsingToModelFromJSON;
+import com.greenacademy.ga_finalprojecthm.R;
+import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,16 +21,18 @@ import java.net.URL;
  */
 
 public class LoginAsyncTask extends AsyncTask<String, Void, String> {
-    private Context AsyncContext;
 
-    public LoginAsyncTask(Context asyncContext) {
-        AsyncContext = asyncContext;
+    private IReceiverJSON iReceiverJSON;
+    private Context context;
+
+    public LoginAsyncTask(Context context) {
+        this.context = context;
     }
 
     @Override
     protected String doInBackground(String... strings) {
         try {
-            URL url = new URL("http://tamod.vn:8050/api/Auth/Login");
+            URL url = new URL("http://103.237.147.137:8050/api/Auth/Login");
             try {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.addRequestProperty("Accept", "text/json");
@@ -62,10 +63,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String> {
                         Status = reader.readLine();
                     }
 
-                    LoginDetails login = ParsingToModelFromJSON.parseToLoginDetails(total.toString());
-                    if (login.getStatus() == 1) {
-                        return "dang nhap thanh cong";
-                    } else return "dang nhap khong thanh cong";
+                    return total.toString();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -73,18 +71,16 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String> {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-        return "Loi server";
+        return context.getResources().getString(R.string.server_error);
     }
 
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        AlertDialog.Builder builder = new AlertDialog.Builder(AsyncContext);
-        builder.setMessage(s);
-        builder.setCancelable(true);
-        AlertDialog alert1 = builder.create();
-        alert1.show();
-        super.onPostExecute(s);
+        iReceiverJSON.getStringJSON(s);
     }
 
+    public void setiReceiverJSON(IReceiverJSON iReceiverJSON){
+        this.iReceiverJSON = iReceiverJSON;
+    }
 }

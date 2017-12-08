@@ -3,6 +3,7 @@ package com.greenacademy.ga_finalprojecthm.adapter;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,9 @@ import com.greenacademy.ga_finalprojecthm.model.DataIcon;
 
 public class DrawerItemCustomAdapter extends ArrayAdapter<DataIcon> {
 
-    Context mContext;
-    int layoutResourceId;
-    DataIcon data[] = null;
+    private Context mContext;
+    private int layoutResourceId;
+    private DataIcon data[] = null;
 
     public DrawerItemCustomAdapter(@NonNull Context context, int resource, @NonNull DataIcon[] data) {
         super(context, resource, data);
@@ -44,6 +45,9 @@ public class DrawerItemCustomAdapter extends ArrayAdapter<DataIcon> {
         tvTitle.setText(dataIcon.getTitle());
         tvTitle.setCompoundDrawablesWithIntrinsicBounds(dataIcon.getIcon(), 0, 0, 0);
 
+        if (dataIcon.getIcon() == 0)
+            tvTitle.setPadding(144,5,10,5);
+        
         return listItemView;
     }
 }

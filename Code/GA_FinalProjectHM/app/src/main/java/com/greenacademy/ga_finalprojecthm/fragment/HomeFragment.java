@@ -13,17 +13,20 @@ import android.view.ViewGroup;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.adapter.CatalogAdapter;
 import com.greenacademy.ga_finalprojecthm.asynctask.HomeASyncTask;
+import com.greenacademy.ga_finalprojecthm.model.Home.FashionCatalog;
 import com.greenacademy.ga_finalprojecthm.model.Home.FashionCatalogResponse;
 import com.greenacademy.ga_finalprojecthm.server.ParsingToModelFromJSON;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 
+import java.util.ArrayList;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeFragment extends Fragment implements IReceiverJSON {
+public class HomeFragment extends Fragment {
 
     RecyclerView rclvCatalog;
-    HomeASyncTask homeASyncTask;
+    ArrayList<FashionCatalog> fashionCatalogs;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -40,17 +43,12 @@ public class HomeFragment extends Fragment implements IReceiverJSON {
         rclvCatalog.setHasFixedSize(true);
         rclvCatalog.setLayoutManager(linearLayoutManager);
 
-        homeASyncTask = new HomeASyncTask();
-        homeASyncTask.execute(getString(R.string.api_server), "DanhSachThoiTrang");
-        homeASyncTask.setiReceiverJSON(this);
+        CatalogAdapter catalogAdapter = new CatalogAdapter(getActivity(), fashionCatalogs);
+        rclvCatalog.setAdapter(catalogAdapter);
         return view;
     }
 
-    @Override
-    public void getStringJSON(String strJSON) {
-        FashionCatalogResponse fashionCatalogResponse = ParsingToModelFromJSON.parseToFashionCatalog(strJSON);
-        CatalogAdapter catalogAdapter = new CatalogAdapter(getActivity(), fashionCatalogResponse.getFashionCatalogs());
-
-        rclvCatalog.setAdapter(catalogAdapter);
+    public void setData(ArrayList<FashionCatalog> fashionCatalogs){
+        this.fashionCatalogs = fashionCatalogs;
     }
 }

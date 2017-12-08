@@ -97,6 +97,12 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                                 LoginDetails login = ParsingToModelFromJSON.parseToLoginDetails(strJSON);
                                 if (login.getStatus() == 1) {
                                     Toast.makeText(getActivity(), R.string.log_in_successfully, Toast.LENGTH_SHORT).show();
+                                    //kiem tra check box
+                                    if (cbRememberMe.isChecked()) {
+                                        Session.username = userName.getText().toString();
+                                        Session.setUsername(userName.getText().toString());
+                                        Session.setPassword(passWord.getText().toString());
+                                    }
                                     Session.isLogedIn = true;
                                     getActivity().getSupportFragmentManager()
                                             .beginTransaction()
@@ -109,17 +115,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                             }
                         }
                     });
-                }
-                //kiem tra check box
-                if (cbRememberMe.isChecked()) {
-//                    editor = sharedPreferences.edit();
-//                    //luu du lieu vao share preferences
-//                    editor.putString(USER, userName.getText().toString());
-//                    editor.putString(PASS, passWord.getText().toString());
-////                    editor.commit();
-//                    editor.apply();
-                    Session.setUsername(userName.getText().toString());
-                    Session.setPassword(passWord.getText().toString());
                 }
                 break;
             // forgot password

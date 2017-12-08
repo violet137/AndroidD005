@@ -24,7 +24,8 @@ public class Session {
     public static void setLoginSession(Context context) {
         prefsLogin = context.getSharedPreferences("dataLogin", Context.MODE_PRIVATE);
     }
-    public static void setWishListSession(Context context, String username){
+
+    public static void setWishListSession(Context context, String username) {
         prefsWishList = context.getSharedPreferences(username + "WishList", Context.MODE_PRIVATE);
     }
 
@@ -63,6 +64,9 @@ public class Session {
         String json = prefsWishList.getString("WishlistProducts", "");
         Type wishlistProductsType = new TypeToken<ArrayList<ProductDetailsInWishlist>>() {
         }.getType();
-        return gson.fromJson(json, wishlistProductsType);
+        if (json.equals(""))
+            return new ArrayList<>();
+        else
+            return gson.fromJson(json, wishlistProductsType);
     }
 }

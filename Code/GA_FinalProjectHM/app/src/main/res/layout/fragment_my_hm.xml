@@ -5,24 +5,48 @@
     android:orientation="vertical"
     tools:context="com.greenacademy.ga_finalprojecthm.fragment.MyHMFragment">
 
-    <TextView
-        android:id="@+id/textView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_bottom_general"
-        android:paddingBottom="@dimen/padding_bottom_general"
-        android:paddingEnd="@dimen/padding_end_general"
-        android:paddingLeft="@dimen/padding_start_general"
-        android:paddingRight="@dimen/padding_end_general"
-        android:paddingStart="@dimen/padding_start_general"
-        android:paddingTop="@dimen/padding_top_general"
-        android:background="#ff000000"
-        android:gravity="center_vertical"
-        android:text="@string/my_hm"
-        android:textAllCaps="true"
-        android:textColor="#ffffffff"
-        android:textSize="@dimen/font_size_general"
-        android:textStyle="bold" />
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="@dimen/margin_bottom_general"
+            android:paddingBottom="@dimen/padding_bottom_general"
+            android:paddingEnd="@dimen/padding_end_general"
+            android:paddingLeft="@dimen/padding_start_general"
+            android:paddingRight="@dimen/padding_end_general"
+            android:paddingStart="@dimen/padding_start_general"
+            android:paddingTop="@dimen/padding_top_general"
+            android:text="@string/my_hm"
+            android:textAllCaps="true"
+            android:textColor="#ffffffff"
+            android:background="#ff000000"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/font_size_general"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvGreeting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_bottom_general"
+            android:paddingBottom="@dimen/padding_bottom_general"
+            android:paddingEnd="@dimen/padding_end_general"
+            android:paddingLeft="@dimen/padding_start_general"
+            android:paddingRight="@dimen/padding_end_general"
+            android:paddingStart="@dimen/padding_start_general"
+            android:paddingTop="@dimen/padding_top_general"
+            android:background="#ff000000"
+            android:textAllCaps="false"
+            android:textColor="#ffffffff"
+            android:textStyle="bold"
+            android:textSize="@dimen/font_size_general"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvInbox"

@@ -12,5 +12,7 @@ public interface ICallBack {
     void GetLoaiThoiTrang(RootLoaiTapChi rootLoaiTapChi);
     void GetTapChi(RootTapChi rootTapChi);
     void GetChiTietTapChi(TapChiJson tapChiJson);
+
+
 }
 

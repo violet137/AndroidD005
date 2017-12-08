@@ -23,6 +23,7 @@ import com.greenacademy.ga_finalprojecthm.fragment.HomeFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MagazineFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MyHMFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.SanPhamFragment.SanPhamFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.SupportFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.WishListFragment;
 import com.greenacademy.ga_finalprojecthm.model.DataIcon;
@@ -36,7 +37,6 @@ import com.greenacademy.ga_finalprojecthm.util.OnCatalogSelected;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements OnCatalogSelected, IReceiverJSON {
-
     private String[] mNavigationDrawerItemTitles;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
     android.support.v7.app.ActionBarDrawerToggle mDrawerToggle;
     private static final int MENU_ADD = Menu.FIRST;
     private static final int MENU_LIST = Menu.FIRST + 1;
+    ArrayList<FashionCatalog> fashionCatalogs;
     private int catalogsSize;
 
     @Override
@@ -72,12 +73,6 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         setupDrawerToggle();
 
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.content_frame, new HomeFragment())
-                .addToBackStack(null)
-                .commit();
-
 //        //generating KeyHash
 //        try {
 //            PackageInfo packageInfo = getPackageManager().getPackageInfo("com.greenacademy.ga_finalprojecthm", PackageManager.GET_SIGNATURES);
@@ -96,9 +91,16 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
         Fragment fragment = null;
         String fragmentTag = "";
 
-        if (position == 0)                          //fragment all products
-            fragment = new HomeFragment();
-        else if (position == catalogsSize)          //fragment Magazine
+        if (position == 0) {                          //fragment all products
+            HomeFragment homeFragment = new HomeFragment();
+            homeFragment.setData(fashionCatalogs);
+            fragment = homeFragment;
+        }
+        else if (position > 0 && position < catalogsSize) {
+            SanPhamFragment sanPhamFragment = new SanPhamFragment();
+            sanPhamFragment.Click(fashionCatalogs.get(position-1).getFashionCatalog());
+            fragment = sanPhamFragment;
+        } else if (position == catalogsSize)          //fragment Magazine
             fragment = new MagazineFragment();
         else if (position == catalogsSize + 1)      //fragment Wish List
             fragment = null;
@@ -182,14 +184,28 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
 
     @Override
     public void onCatalogSelected(String fashionCatalog) {
-        Toast.makeText(this, fashionCatalog, Toast.LENGTH_SHORT).show();
+        SanPhamFragment sanPhamFragment = new SanPhamFragment();
+        sanPhamFragment.Click(fashionCatalog);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .addToBackStack(null)
+                .replace(R.id.content_frame, sanPhamFragment)
+                .commit();
     }
 
     @Override
     public void getStringJSON(String strJSON) {
         FashionCatalogResponse fashionCatalogResponse = ParsingToModelFromJSON.parseToFashionCatalog(strJSON);
-        ArrayList<FashionCatalog> fashionCatalogs = fashionCatalogResponse.getFashionCatalogs();
+        fashionCatalogs = fashionCatalogResponse.getFashionCatalogs();
         catalogsSize = fashionCatalogs.size();
+
+        HomeFragment homeFragment = new HomeFragment();
+        homeFragment.setData(fashionCatalogs);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, homeFragment)
+                .addToBackStack(null)
+                .commit();
 
         mNavigationDrawerItemTitles = getResources().getStringArray(R.array.navigation_drawer_items_array);
         DataIcon[] drawerItems = new DataIcon[catalogsSize + mNavigationDrawerItemTitles.length + 1];
@@ -200,7 +216,7 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
             if (i < catalogsSize)
                 drawerItems[i + 1] = new DataIcon(0, textCapSentences(fashionCatalogs.get(i).getFashionCatalogName()));
             else
-                drawerItems[i + 1] = new DataIcon(0, textCapSentences(mNavigationDrawerItemTitles[i - catalogsSize]));
+                drawerItems[i + 1] = new DataIcon(0, mNavigationDrawerItemTitles[i - catalogsSize]);
         }
         drawerItems[catalogsSize].setIcon(R.drawable.main_menu_icon_inspiration_normal);
         drawerItems[catalogsSize + 1].setIcon(R.drawable.main_menu_icon_wishlist_normal);
@@ -214,28 +230,13 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0 && position < catalogsSize - 1) {
-                    Fragment fragment = null;
-                    if (fragment != null) {
-                        FragmentManager fragmentManager = getSupportFragmentManager();
-                        fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.content_frame, fragment).commit();
-
-                        mDrawerListView.setItemChecked(position, true);
-                        mDrawerListView.setSelection(position);
-                        setTitle(mNavigationDrawerItemTitles[position]);
-
-                        mDrawerLayout.closeDrawer(mDrawerListView);
-                    } else {
-                        Log.e("MainActivity", "Error in creating fragment");
-                    }
-                } else
-                    selectItem(position);
+                selectItem(position);
             }
         });
     }
 
     public String textCapSentences(String str) {
-        String[] words = str.trim().split("[ &]");
+        String[] words = str.trim().split(" ");
         StringBuilder ret = new StringBuilder();
         for (int i = 0; i < words.length; i++) {
             if (words[i].trim().length() > 0) {
@@ -269,6 +270,6 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
     }
 
     private void saveSesstion() {
-
+        Session.setWishlistProducts(Session.wishlistProducts);
     }
 }

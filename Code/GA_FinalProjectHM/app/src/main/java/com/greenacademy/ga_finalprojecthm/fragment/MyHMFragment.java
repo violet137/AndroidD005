@@ -40,7 +40,9 @@ public class MyHMFragment extends Fragment implements View.OnClickListener {
         TextView tvInbox = view.findViewById(R.id.tvInbox);
         TextView tvUserProfile = view.findViewById(R.id.tvUserProfile);
         TextView tvSettings = view.findViewById(R.id.tvSettings);
+        TextView tvGreeting = view.findViewById(R.id.tvGreeting);
 
+        tvGreeting.setText("Hi, " + Session.username);
         tvInbox.setOnClickListener(this);
         tvUserProfile.setOnClickListener(this);
         tvSettings.setOnClickListener(this);
@@ -49,7 +51,7 @@ public class MyHMFragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.tvInbox:
                 break;
             case R.id.tvUserProfile:
@@ -76,7 +78,7 @@ public class MyHMFragment extends Fragment implements View.OnClickListener {
         menu.clear();
 //        inflater.inflate(R.menu.menu_toolbar, menu);
 
-        if(Session.isLogedIn){
+        if (!Session.username.equals("Guest")) {
             menu.add(Menu.NONE, MENU_ITEM, Menu.NONE, R.string.log_out)
                     .setIcon(0)
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
@@ -95,19 +97,18 @@ public class MyHMFragment extends Fragment implements View.OnClickListener {
                         }
                     })
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        }
-        else {
+        } else {
             menu.add(Menu.NONE, MENU_ITEM, Menu.NONE, R.string.log_in)
                     .setIcon(0)
                     .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
 //                            if(Session.username.equals("Guest")){
-                                getActivity().getSupportFragmentManager()
-                                        .beginTransaction()
-                                        .replace(R.id.content_frame, new LoginFragment())
-                                        .addToBackStack(null)
-                                        .commit();
+                            getActivity().getSupportFragmentManager()
+                                    .beginTransaction()
+                                    .replace(R.id.content_frame, new LoginFragment())
+                                    .addToBackStack(null)
+                                    .commit();
 //                            }
 //                            else {
 //                                LoginAsyncTask loginAsyncTask = new LoginAsyncTask(getActivity());

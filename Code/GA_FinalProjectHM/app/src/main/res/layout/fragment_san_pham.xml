@@ -1,0 +1,31 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/SrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.greenacademy.ga_finalprojecthm.fragment.SanPhamFragment.SanPhamFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imvImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:src="@mipmap/ic_launcher" />
+
+        <com.greenacademy.ga_finalprojecthm.fragment.SanPhamFragment.CustomListView
+            android:id="@+id/lvListView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </com.greenacademy.ga_finalprojecthm.fragment.SanPhamFragment.CustomListView>
+    </LinearLayout>
+
+
+
+</ScrollView>

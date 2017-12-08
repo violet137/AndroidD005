@@ -1,5 +1,10 @@
 package com.greenacademy.ga_finalprojecthm;
 
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
+
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
         } else if (position == catalogsSize)          //fragment Magazine
             fragment = new MagazineFragment();
         else if (position == catalogsSize + 1)      //fragment Wish List
-            fragment = null;
+            fragment = new WishListFragment();
         else if (position == catalogsSize + 2) {      //fragment My H&M
             fragment = new MyHMFragment();
             fragmentTag = "MyHMFragment";
@@ -116,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
             fragment = new KhuyenMaiFragment();
 
         if (fragment != null) {
-
             FragmentManager fragmentManager = getSupportFragmentManager();
             fragmentManager.beginTransaction().addToBackStack(null).replace(R.id.content_frame, fragment, fragmentTag).commit();
 

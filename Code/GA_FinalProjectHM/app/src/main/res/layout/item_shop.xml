@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lShop"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/padding_start_general"
+    android:paddingRight="@dimen/margin_end_general">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,61 +16,37 @@
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_bottom_general"
-            android:layout_marginEnd="@dimen/margin_padding_none"
-            android:layout_marginLeft="@dimen/margin_start_general"
-            android:layout_marginRight="@dimen/margin_padding_none"
-            android:layout_marginStart="@dimen/margin_start_general"
-            android:layout_marginTop="@dimen/margin_top_general"
-            android:text="" />
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textSize="17sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_bottom_general"
-            android:layout_marginEnd="@dimen/margin_start_general"
-            android:layout_marginLeft="@dimen/margin_padding_none"
-            android:layout_marginRight="@dimen/margin_start_general"
-            android:layout_marginStart="@dimen/margin_padding_none"
-            android:layout_marginTop="@dimen/margin_top_general"
-            android:gravity="end"
-            android:text="" />
+            android:layout_weight="1"
+            android:gravity="right"
+            android:text="TextView"
+            android:textSize="17sp" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_bottom_general"
-        android:layout_marginEnd="@dimen/margin_end_general"
-        android:layout_marginLeft="@dimen/margin_start_general"
-        android:layout_marginRight="@dimen/margin_end_general"
-        android:layout_marginStart="@dimen/margin_start_general"
-        android:layout_marginTop="@dimen/margin_top_general"
-        android:text="" />
+        android:text="TextView"
+        android:textSize="17sp" />
 
     <TextView
         android:id="@+id/tvStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_bottom_general"
-        android:layout_marginEnd="@dimen/margin_end_general"
-        android:layout_marginLeft="@dimen/margin_start_general"
-        android:layout_marginRight="@dimen/margin_end_general"
-        android:layout_marginStart="@dimen/margin_start_general"
-        android:layout_marginTop="@dimen/margin_top_general"
-        android:text="" />
+        android:text="TextView" />
 
     <TextView
         android:id="@+id/tvEvaluate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_bottom_general"
-        android:layout_marginEnd="@dimen/margin_end_general"
-        android:layout_marginLeft="@dimen/margin_start_general"
-        android:layout_marginRight="@dimen/margin_end_general"
-        android:layout_marginStart="@dimen/margin_start_general"
-        android:layout_marginTop="@dimen/margin_top_general"
-        android:text="" />
+        android:text="TextView" />
 </LinearLayout>

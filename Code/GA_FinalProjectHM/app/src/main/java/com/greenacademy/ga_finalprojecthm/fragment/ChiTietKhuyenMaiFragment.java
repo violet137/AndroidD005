@@ -1,6 +1,5 @@
 package com.greenacademy.ga_finalprojecthm.fragment;
 
-
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -19,7 +18,6 @@ import com.greenacademy.ga_finalprojecthm.model.RootChiTietKhuyenMai;
 import com.greenacademy.ga_finalprojecthm.server.ParsingToModelFromJSON;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,7 +33,6 @@ public class ChiTietKhuyenMaiFragment extends Fragment implements IReceiverJSON 
     public ChiTietKhuyenMaiFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -82,10 +79,6 @@ public class ChiTietKhuyenMaiFragment extends Fragment implements IReceiverJSON 
         chiTietKhuyenMaiAdapter = new ChiTietKhuyenMaiAdapter(rootChiTietKhuyenMai, getActivity() , R.layout.item_chitietkhuyenmai);
 
         rvCTKM.setAdapter(chiTietKhuyenMaiAdapter);
-
-
     }
-
-
 }
 

@@ -10,6 +10,7 @@
     <dimen name="margin_bottom_general">5dp</dimen>
     <dimen name="margin_start_general">10dp</dimen>
     <dimen name="margin_end_general">10dp</dimen>
+    <dimen name="margin_all_general">10dp</dimen>
     <dimen name="margin_padding_none">0dp</dimen>
     <dimen name="margin_top_title_catalog">150dp</dimen>
 

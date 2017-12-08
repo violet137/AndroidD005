@@ -4,6 +4,7 @@
     <string name="fb_login_protocol_scheme">fb1530057683776324</string>
     <string name="api_server">http://35.227.90.131:9001/api/</string>
     <string name="server_error">Server error!</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyAN1bAS6Rm4NiulHhWQMGGvktqsKQvYeMc</string>
     <string-array name="navigation_drawer_items_array">
         <item>Giỏ Hàng</item>
         <item>Tài Khoản H&amp;M</item>
@@ -11,6 +12,7 @@
         <item>Tìm Cửa Hàng</item>
         <item>Khuyến Mãi</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
     <string name="wish_list">Wish List</string>
     <string name="log_in">Log In</string>
     <string name="log_out">Log Out</string>

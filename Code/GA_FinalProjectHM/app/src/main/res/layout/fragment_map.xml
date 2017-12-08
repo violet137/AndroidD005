@@ -6,52 +6,48 @@
     android:orientation="vertical"
     tools:context="com.greenacademy.ga_finalprojecthm.fragment.MapFragment">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:orientation="horizontal">
-
-        <ImageButton
-            android:id="@+id/btnMap"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/list_shop" />
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:src="@drawable/com_facebook_tooltip_black_bottomnub" />
-    </LinearLayout>
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_bottom_general"
-        android:paddingBottom="@dimen/padding_bottom_general"
-        android:paddingEnd="@dimen/padding_end_general"
-        android:paddingLeft="@dimen/padding_start_general"
-        android:paddingRight="@dimen/padding_end_general"
-        android:paddingStart="@dimen/padding_start_general"
-        android:paddingTop="@dimen/padding_top_general"
-        android:background="@color/cast_intro_overlay_background_color"
-        android:text="@string/find_a_store"
-        android:textAllCaps="true"
-        android:textStyle="bold"
+        android:background="@color/HollyBlack"
+        android:text="FIND A STORE"
         android:textColor="@color/cardview_light_background"
-        android:textSize="@dimen/font_size_general" />
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <AutoCompleteTextView
+            android:id="@+id/svMap"
+            android:layout_width="322dp"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/btnMyLocate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_weight="1"
+            android:src="@drawable/store_locator_search_position_button_normal" />
+    </LinearLayout>
 
     <ViewSwitcher
         android:id="@+id/vsMap"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.gms.maps.MapView
-            android:id="@+id/mapView"
+        <fragment
+            android:id="@+id/mapShop"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:context="com.greenacademy.ga_finalprojecthm.fragment.MapFragment">
+
+        </fragment>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcvList"

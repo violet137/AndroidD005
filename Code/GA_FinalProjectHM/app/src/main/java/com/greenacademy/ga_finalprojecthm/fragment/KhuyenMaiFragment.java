@@ -20,7 +20,6 @@ import com.greenacademy.ga_finalprojecthm.util.IReceiverChiTietKhuyenMai;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverKhuyenMai;
 
-
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -34,7 +33,6 @@ public class KhuyenMaiFragment extends Fragment implements IReceiverJSON, IRecei
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,7 +44,6 @@ public class KhuyenMaiFragment extends Fragment implements IReceiverJSON, IRecei
         khuyenMaiAsyncTask = new KhuyenMaiAsyncTask();
         khuyenMaiAsyncTask.setiReceiverJSON(this);
         khuyenMaiAsyncTask.execute();
-
 
         return view;
     }
@@ -73,10 +70,7 @@ public class KhuyenMaiFragment extends Fragment implements IReceiverJSON, IRecei
         //lay loai tap chi khi nhan vao loai tap chi tren recycler view
         khuyenMaiAdapter.setKhuyenMai(this);
         rvKhuyenMai.setAdapter(khuyenMaiAdapter);
-
     }
-
-
 
     @Override
     public void getKhuyenMai(int idKhuyenMai) {
@@ -89,8 +83,5 @@ public class KhuyenMaiFragment extends Fragment implements IReceiverJSON, IRecei
                 .replace(R.id.content_frame, chiTietKhuyenMaiFragment).addToBackStack("")
                 .commit();
     }
-
 }
-
-
 //Cần lấy được data Chi Tiết Khuyến Mãi

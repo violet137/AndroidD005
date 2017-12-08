@@ -80,7 +80,7 @@ public class AsynTaskTapChi extends AsyncTask<String , Void , String> {
                 String LoaiTapChi = JsonTapChi.getString("LoaiTapChi");
                 String Ten = JsonTapChi.getString("Ten");
                 String MoTa = JsonTapChi.getString("MoTa");
-                String LinkHinh = JsonTapChi.getString("HinhByColor");
+                String LinkHinh = JsonTapChi.getString("LinkHinh");
 
                 TapChiJson tapChiJson = new TapChiJson();
                 tapChiJson.setIdTapChi(IdTapChi);
@@ -95,7 +95,5 @@ public class AsynTaskTapChi extends AsyncTask<String , Void , String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
     }
 }

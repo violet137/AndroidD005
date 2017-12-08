@@ -51,11 +51,21 @@ public class ParsingToModelFromJSON {
             root.setDescription(des);
             //
             JSONArray cuahangListJson = rootJson.getJSONArray("CuaHangTranfers");
-            for (int i = 0; i < cuahangListJson.length(); i++) {
+            for (int i =0; i <cuahangListJson.length(); i++){
                 JSONObject cuahangJson = cuahangListJson.getJSONObject(i);
                 String name = cuahangJson.getString("TenCuaHang");
                 String address = cuahangJson.getString("DiaChi");
-                String style = cuahangJson.getString("LoaiThoiTrangData");
+                String hours = cuahangJson.getString("GioMoCua");
+                String style = "";
+                //
+                JSONArray styleArray = cuahangJson.getJSONArray("LoaiThoiTrang");
+                for (int j=0; j<styleArray.length();j++){
+                    JSONObject styleJson = styleArray.getJSONObject(j);
+                    style += styleJson.getString("Ten") + " - ";
+                }
+                if (!style.isEmpty()){
+                    style = style.substring(0,style.length()-3);
+                }
                 Double lat = cuahangJson.getDouble("Lat");
                 Double lng = cuahangJson.getDouble("Lng");
                 Double evaluate = cuahangJson.getDouble("DanhGia");
@@ -64,6 +74,7 @@ public class ParsingToModelFromJSON {
                 shop.setName(name);
                 shop.setAddress(address);
                 shop.setStyle(style);
+                shop.setHours(hours);
                 shop.setLat(lat);
                 shop.setLng(lng);
                 shop.setEvaluate(evaluate);

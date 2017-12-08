@@ -61,7 +61,7 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
         return view;
     }
 
-    public void loadLoaiTapChi(){
+    public void loadLoaiTapChi() {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         rvLoaiTapChi.setHasFixedSize(true);
         rvLoaiTapChi.setLayoutManager(layoutManager);
@@ -81,7 +81,6 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
         //lay loai tap chi khi nhan vao loai tap chi tren recycler view
         adapter.setLoaiTapChi(this);
         rvLoaiTapChi.setAdapter(adapter);
-
     }
 
     //Nhảy qua fragment Tạp Chí, được bắn từ Loại Tạp chí Adapter
@@ -99,4 +98,5 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
                 .replace(R.id.content_frame, chiTietTapChiFragment).addToBackStack("")
                 .commit();
     }
+
 }

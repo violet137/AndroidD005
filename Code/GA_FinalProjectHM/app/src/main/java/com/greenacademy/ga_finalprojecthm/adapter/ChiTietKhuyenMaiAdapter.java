@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.model.RootChiTietKhuyenMai;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by HoangHai Nguyen on 11/21/2017.
@@ -42,11 +43,11 @@ public class ChiTietKhuyenMaiAdapter extends RecyclerView.Adapter<ChiTietKhuyenM
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-//        Picasso.with(context)
-//                .load(rootChiTietKhuyenMai.getListSP().get(position).getLinkHinh())
-//                .placeholder(R.drawable.icon_camera)
-//                .error(R.drawable.icon_error)
-//                .into(holder.imgListCTKM);
+        Picasso.with(context)
+                .load(rootChiTietKhuyenMai.getListSP().get(position).getLinkHinh())
+                .placeholder(R.drawable.icon_camera)
+                .error(R.drawable.icon_error)
+                .into(holder.imgListCTKM);
         holder.tvTenCTKM.setText(rootChiTietKhuyenMai.getListSP().get(position).getTenSP());
         holder.tvMoTaCTKM.setText(rootChiTietKhuyenMai.getListSP().get(position).getMoTaSp());
 

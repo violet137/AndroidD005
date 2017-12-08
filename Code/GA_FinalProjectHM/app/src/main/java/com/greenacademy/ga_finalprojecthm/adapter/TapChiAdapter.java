@@ -57,15 +57,6 @@ public class TapChiAdapter extends RecyclerView.Adapter<TapChiAdapter.ViewHolder
                 onTapChiSelected.onTapChiSelected(rootTapChi.getTapChiTranfers().get(position).getIdTapChi());
             }
         });
-//        String imageUrl = "URL";
-//        InputStream in = null;
-//        try {
-//            in = new URL(imageUrl).openStream();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        Bitmap bmp = BitmapFactory.decodeStream(in);
-//        holder.imgTapChi.setImageBitmap(bmp);
 
     }
 

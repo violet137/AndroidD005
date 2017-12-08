@@ -246,12 +246,12 @@ public class ParsingToModelFromJSON {
                 JSONObject JSONCTKM = ListCTKMJSON.getJSONObject(i);
                 String TenSPCTKM = JSONCTKM.getString("Ten");
                 String MoTaSPCTKM = JSONCTKM.getString("MoTa");
-                //String LinkHinhCTKM = JSONCTKM.getString("LinkHinh");
+                String LinkHinhCTKM = JSONCTKM.getString("LinkHinh");
 
                 ChiTietKhuyenMaiJSON chiTietKhuyenMaiJSON = new ChiTietKhuyenMaiJSON();
                 chiTietKhuyenMaiJSON.setTenSP(TenSPCTKM);
                 chiTietKhuyenMaiJSON.setMoTaSp(MoTaSPCTKM);
-                //chiTietKhuyenMaiJSON.setLinkHinh(LinkHinhCTKM);
+                chiTietKhuyenMaiJSON.setLinkHinh(LinkHinhCTKM);
 
                 rootChiTietKhuyenMai.getListSP().add(chiTietKhuyenMaiJSON);
             }

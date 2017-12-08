@@ -39,7 +39,7 @@ public class FacebookLoginFragment extends Fragment {
     CallbackManager callbackManager;
     TextView tvID, tvName, tvEmail;
     ProfilePictureView profile_pic;
-    private static final int MENU_LOGIN = Menu.FIRST;
+    private static final int MENU_I = Menu.FIRST;
     private static final int MENU_LIST = Menu.FIRST + 1;
 
     public FacebookLoginFragment() {
@@ -124,7 +124,7 @@ public class FacebookLoginFragment extends Fragment {
         menu.clear();
 //        inflater.inflate(R.menu.menu_toolbar, menu);
 
-        menu.add(Menu.NONE, MENU_LOGIN, Menu.NONE, R.string.log_in)
+        menu.add(Menu.NONE, MENU_I, Menu.NONE, R.string.log_in)
                 .setIcon(0)
                 .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                     @Override

@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.greenacademy.ga_finalprojecthm.ICallBack;
+import com.greenacademy.ga_finalprojecthm.util.ICallBack;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.adapter.TapChiAdapter;
 import com.greenacademy.ga_finalprojecthm.asynctask.AsynTaskTapChi;
@@ -25,7 +25,6 @@ import com.greenacademy.ga_finalprojecthm.model.TapChiJson;
 public class TapChiFragment extends Fragment implements ICallBack {
     //Tạp Chí
     RecyclerView rvTapChi;
-    AsynTaskTapChi asynTaskTapChi = new AsynTaskTapChi();
     RootTapChi rootTapChi;
     TapChiAdapter adapter;
 
@@ -51,12 +50,13 @@ public class TapChiFragment extends Fragment implements ICallBack {
 
         rootTapChi = new RootTapChi();
 
-        asynTaskTapChi.ICallBack(this);
-
         return view;
     }
 
     public void loadData(String idLoaiTapChi) {
+        //Phải khai báo cục bộ vì không thể execute 2 lần, mỗi lần phải new lại
+        AsynTaskTapChi asynTaskTapChi = new AsynTaskTapChi();
+        asynTaskTapChi.ICallBack(this);
         asynTaskTapChi.execute(idLoaiTapChi);
     }
 

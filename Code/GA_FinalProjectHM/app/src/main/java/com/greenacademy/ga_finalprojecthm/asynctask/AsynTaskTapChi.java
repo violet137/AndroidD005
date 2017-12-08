@@ -1,9 +1,8 @@
 package com.greenacademy.ga_finalprojecthm.asynctask;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
-import com.greenacademy.ga_finalprojecthm.ICallBack;
+import com.greenacademy.ga_finalprojecthm.util.ICallBack;
 import com.greenacademy.ga_finalprojecthm.model.RootTapChi;
 import com.greenacademy.ga_finalprojecthm.model.TapChiJson;
 
@@ -33,7 +32,7 @@ public class AsynTaskTapChi extends AsyncTask<String , Void , String> {
     @Override
     protected String doInBackground(String... strings) {
         try{
-            URL url = new URL("http://tamod.vn:8050/api/TapChi/TapChi?loaiTapChi="+strings[0]);
+            URL url = new URL("http://35.227.90.131:9001/api/TapChi/TapChi?loaiTapChi="+strings[0]);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //config server trả về kiểu xml
             connection.addRequestProperty("Accept", "text/json");

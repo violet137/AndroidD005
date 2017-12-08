@@ -33,6 +33,7 @@ public class LoginAsyncTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... strings) {
         try {
             URL url = new URL("http://35.227.90.131:9001/api/Auth/Login");
+
             try {
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                 conn.addRequestProperty("Accept", "text/json");

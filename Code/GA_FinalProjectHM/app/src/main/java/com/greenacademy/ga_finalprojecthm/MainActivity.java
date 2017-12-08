@@ -20,6 +20,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
 import com.greenacademy.ga_finalprojecthm.asynctask.HomeASyncTask;
 import com.greenacademy.ga_finalprojecthm.fragment.HomeFragment;
+import com.greenacademy.ga_finalprojecthm.fragment.KhuyenMaiFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MagazineFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MyHMFragment;
@@ -112,7 +113,7 @@ public class MainActivity extends AppCompatActivity implements OnCatalogSelected
         else if (position == catalogsSize + 4)      //fragment Find a Store
             fragment = new MapFragment();
         else if (position == catalogsSize + 5)      //fragment Sales
-            fragment = null;
+            fragment = new KhuyenMaiFragment();
 
         if (fragment != null) {
 

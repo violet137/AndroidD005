@@ -26,6 +26,7 @@ public class ChiTietTapChiFragment extends Fragment implements IReceiverJSON {
     private int idTapChi;
     TapChiJson tapChiJson = new TapChiJson();
 
+
     public ChiTietTapChiFragment() {
         // Required empty public constructor
     }
@@ -53,5 +54,6 @@ public class ChiTietTapChiFragment extends Fragment implements IReceiverJSON {
     public void getStringJSON(String strJSON) {
         tapChiJson = ParsingToModelFromJSON.parseToTapChi(strJSON);
         tvTenTC.setText(tapChiJson.getTen());
+        wvNoiDungTapChi.loadUrl(""+tapChiJson.getNoiDung());
     }
 }

@@ -84,9 +84,10 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
 
     }
 
+    //Nhảy qua fragment Tạp Chí, được bắn từ Loại Tạp chí Adapter
     @Override
     public void getLoaiTapChi(String loaiTapChi) {
-//        tapChiFragment.loadData(loaiTapChi);
+        tapChiFragment.loadData(loaiTapChi);
     }
 
     @Override
@@ -95,7 +96,7 @@ public class MagazineFragment extends Fragment implements IReceiverJSON, IReceiv
         chiTietTapChiFragment.setIdTapChi(idTapChi);
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.content_frame, chiTietTapChiFragment)
+                .replace(R.id.content_frame, chiTietTapChiFragment).addToBackStack("")
                 .commit();
     }
 }

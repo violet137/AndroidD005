@@ -1,4 +1,4 @@
-package com.greenacademy.ga_finalprojecthm;
+package com.greenacademy.ga_finalprojecthm.util;
 
 import com.greenacademy.ga_finalprojecthm.model.RootLoaiTapChi;
 import com.greenacademy.ga_finalprojecthm.model.RootTapChi;

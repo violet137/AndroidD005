@@ -12,10 +12,16 @@ import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
 import com.greenacademy.ga_finalprojecthm.model.FashionShop;
 import com.greenacademy.ga_finalprojecthm.model.Home.FashionCatalog;
 import com.greenacademy.ga_finalprojecthm.model.Home.FashionCatalogResponse;
+import com.greenacademy.ga_finalprojecthm.model.ChiTietKhuyenMaiJSON;
+import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
+import com.greenacademy.ga_finalprojecthm.model.FashionShop;
+import com.greenacademy.ga_finalprojecthm.model.KhuyenMaiJson;
 import com.greenacademy.ga_finalprojecthm.model.LoaiHoTro;
 import com.greenacademy.ga_finalprojecthm.model.LoaiTapChiJson;
 import com.greenacademy.ga_finalprojecthm.model.LoginDetails;
 import com.greenacademy.ga_finalprojecthm.model.QuestionSupport;
+import com.greenacademy.ga_finalprojecthm.model.RootChiTietKhuyenMai;
+import com.greenacademy.ga_finalprojecthm.model.RootKhuyenMai;
 import com.greenacademy.ga_finalprojecthm.model.RootLoaiHoTro;
 import com.greenacademy.ga_finalprojecthm.model.RootLoaiTapChi;
 import com.greenacademy.ga_finalprojecthm.model.RootSupport;
@@ -224,6 +230,38 @@ public class ParsingToModelFromJSON {
         return fashionCatalogResponse;
     }
 
+    public static RootKhuyenMai parseToKhuyenMai(String strJSON) {
+        RootKhuyenMai rootKhuyenMai = new RootKhuyenMai();
+        try {
+            JSONObject rootJSON = new JSONObject(strJSON);
+
+            int Status = rootJSON.getInt("Status");
+            String Description = rootJSON.getString("Description");
+
+            rootKhuyenMai.setStatus(Status);
+            rootKhuyenMai.setDescription(Description);
+
+            JSONArray ListKhuyenMaiJSON = rootJSON.getJSONArray("KhuyenMaiTranfers");
+            for (int i = 0; i < ListKhuyenMaiJSON.length(); i++) {
+                JSONObject JSONKhuyenMai = ListKhuyenMaiJSON.getJSONObject(i);
+                int IdKhuyenMai = JSONKhuyenMai.getInt("Id");
+                String TenKhuyenMai = JSONKhuyenMai.getString("Ten");
+                String HinhDaiDien = JSONKhuyenMai.getString("HinhDaiDien");
+
+                KhuyenMaiJson khuyenMaiJson = new KhuyenMaiJson();
+                khuyenMaiJson.setIdKhuyenMai(IdKhuyenMai);
+                khuyenMaiJson.setTenKhuyenMai(TenKhuyenMai);
+                khuyenMaiJson.setHinhDaiDien(HinhDaiDien);
+
+                rootKhuyenMai.getKhuyenMaiTranfers().add(khuyenMaiJson);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rootKhuyenMai;
+    }
+
     public static DanhMucHang parseToDanhMucHang(String strJson) {
         //tao doi tuong danh muc hang de gan tu json oject xuong
         DanhMucHang danhMucHang = new DanhMucHang();
@@ -263,16 +301,54 @@ public class ParsingToModelFromJSON {
             danhMucHangTranfers.setXuHuongTtrangLink(xuHuongTTrangLink);
             //gan doi tuong danhMucHangTranfers vao doi tuong danhMucHang
             danhMucHang.setDanhMucHangTranfers(danhMucHangTranfers);
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return danhMucHang;
     }
 
+    public static RootChiTietKhuyenMai parseToChiTietKhuyenMai(String strJSON) {
+        RootChiTietKhuyenMai rootChiTietKhuyenMai = new RootChiTietKhuyenMai();
+        try {
+            JSONObject rootJSON = new JSONObject(strJSON);
+            int Status = rootJSON.getInt("Status");
+            String Description = rootJSON.getString("Description");
+            int id = rootJSON.getInt("Id");
+            String TenCTKM = rootJSON.getString("Ten");
+            String HinhCTKM = rootJSON.getString("HinhDaiDien");
+            String MoTaCTKM = rootJSON.getString("Mota");
+
+            rootChiTietKhuyenMai.setStatus(Status);
+            rootChiTietKhuyenMai.setDescription(Description);
+            rootChiTietKhuyenMai.setId(id);
+            rootChiTietKhuyenMai.setTenCTKM(TenCTKM);
+            rootChiTietKhuyenMai.setHinhCTKM(HinhCTKM);
+            rootChiTietKhuyenMai.setMoTaCTKM(MoTaCTKM);
+
+            JSONArray ListCTKMJSON = rootJSON.getJSONArray("ListSanPham");
+            for (int i = 0; i < ListCTKMJSON.length(); i++) {
+                JSONObject JSONCTKM = ListCTKMJSON.getJSONObject(i);
+                String TenSPCTKM = JSONCTKM.getString("Ten");
+                String MoTaSPCTKM = JSONCTKM.getString("MoTa");
+                //String LinkHinhCTKM = JSONCTKM.getString("LinkHinh");
+
+                ChiTietKhuyenMaiJSON chiTietKhuyenMaiJSON = new ChiTietKhuyenMaiJSON();
+                chiTietKhuyenMaiJSON.setTenSP(TenSPCTKM);
+                chiTietKhuyenMaiJSON.setMoTaSp(MoTaSPCTKM);
+                //chiTietKhuyenMaiJSON.setLinkHinh(LinkHinhCTKM);
+
+                rootChiTietKhuyenMai.getListSP().add(chiTietKhuyenMaiJSON);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rootChiTietKhuyenMai;
+    }
+
     public static ChiTietSanPham parseToChiTietSanPham(String strJson) {
         ChiTietSanPham chiTietSanPham = new ChiTietSanPham();
-        ArrayList<SanPhamTranfers> listSanPhamTranfer=new ArrayList<>();
+        ArrayList<SanPhamTranfers> listSanPhamTranfer = new ArrayList<>();
         try {
             JSONObject rootJson = new JSONObject(strJson);
             // lay status va decriptions
@@ -282,15 +358,11 @@ public class ParsingToModelFromJSON {
             Descriptions = rootJson.getString("Description");
             chiTietSanPham.setDescription(Descriptions);
             chiTietSanPham.setStatus(Status);
+
             //lay sanPhamTranfers
-
-
             JSONArray sanPhamTranfersJSOn = rootJson.getJSONArray("SanPhamTranfers");
-
-
             ArrayList<String> tempListMau = new ArrayList<>();
             ArrayList<String> tempListSize = new ArrayList<>();
-
 
             int[] tempSPPhuHop;
             for (int i = 0; i < sanPhamTranfersJSOn.length(); i++) {
@@ -324,26 +396,24 @@ public class ParsingToModelFromJSON {
                 tempSanPhamTranfers.setSapPhamPhuHop(tempSPPhuHop);
                 //set link hinh
                 JSONArray linkHinhObjectJSon = sanPhamTranfersJSOn.getJSONObject(i).getJSONArray("LinkHinh");
-                for(int j=0;j<linkHinhObjectJSon.length();j++){
-                    HinhByColor tempHinhByColor =new HinhByColor();
-                    JSONArray arrLinkHinhByColorJSon=linkHinhObjectJSon.getJSONObject(j).getJSONArray("LinkHinh");
-                    ArrayList<String> strLinkHinhByColor=new ArrayList<>();
-                    for(int k=0;k<arrLinkHinhByColorJSon.length();k++){
+                for (int j = 0; j < linkHinhObjectJSon.length(); j++) {
+                    HinhByColor tempHinhByColor = new HinhByColor();
+                    JSONArray arrLinkHinhByColorJSon = linkHinhObjectJSon.getJSONObject(j).getJSONArray("LinkHinh");
+                    ArrayList<String> strLinkHinhByColor = new ArrayList<>();
+                    for (int k = 0; k < arrLinkHinhByColorJSon.length(); k++) {
                         strLinkHinhByColor.add(arrLinkHinhByColorJSon.get(k).toString());
                     }
                     tempHinhByColor.setLinkHinh(strLinkHinhByColor);
-                    String tempMau=linkHinhObjectJSon.getJSONObject(j).getString("MauSac");
+                    String tempMau = linkHinhObjectJSon.getJSONObject(j).getString("MauSac");
                     tempHinhByColor.setMauSac(tempMau);
                     tempListHinhByColor.add(tempHinhByColor);
-
                 }
-
                 tempSanPhamTranfers.setHinhByColors(tempListHinhByColor);
                 listSanPhamTranfer.add(tempSanPhamTranfers);
             }
             chiTietSanPham.setSanPhamTranfers(listSanPhamTranfer);
         } catch (JSONException e) {
-            Log.e("loi nay ne",e.toString());
+            Log.e("loi nay ne", e.toString());
             e.printStackTrace();
         }
 

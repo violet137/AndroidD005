@@ -8,9 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.greenacademy.ga_finalprojecthm.MainActivity;
 import com.greenacademy.ga_finalprojecthm.R;
+import com.greenacademy.ga_finalprojecthm.fragment.WishListFragment;
 import com.greenacademy.ga_finalprojecthm.model.ProductDetailsInWishlist;
+import com.greenacademy.ga_finalprojecthm.session.Session;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -35,23 +39,30 @@ public class WishListProductAdapter extends RecyclerView.Adapter<WishListProduct
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         holder.tvProductName.setText(productDetailsInWishlistArrayList.get(position).getProductName());
         holder.tvProductSize.setText(productDetailsInWishlistArrayList.get(position).getProductSize());
         holder.tvProductColor.setText(productDetailsInWishlistArrayList.get(position).getProductColor());
         holder.tvProductPrice.setText(String.valueOf(productDetailsInWishlistArrayList.get(position).getProductPrice()));
         holder.tvProductPriceSale.setText(String.valueOf(productDetailsInWishlistArrayList.get(position).getProductPriceSale()));
         holder.tvProductQuantity.setText(String.valueOf(productDetailsInWishlistArrayList.get(position).getProductQuantity()));
-        Context context = holder.imgvProductWishList.getContext();
+        final Context context = holder.imgvProductWishList.getContext();
         Picasso
             .with(context)
             .load(productDetailsInWishlistArrayList.get(position).getLinkImage())
             .into(holder.imgvProductWishList);
 
-        holder.llProductWishList.setOnClickListener(new View.OnClickListener() {
+        holder.llProductWishList.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
-
+            public boolean onLongClick(View v) {
+                Session.wishlistProducts.remove(position);
+                Toast.makeText(context, "Product removed!", Toast.LENGTH_SHORT).show();
+                ((MainActivity)context).getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(null)
+                        .replace(R.id.content_frame, new WishListFragment())
+                        .commit();
+                return true;
             }
         });
     }

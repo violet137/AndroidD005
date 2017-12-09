@@ -8,9 +8,8 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="262dp"
-        android:layout_height="300dp"
-        android:src="@mipmap/ic_launcher_round" />
+    <ListView
+        android:id="@+id/lvSet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

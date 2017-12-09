@@ -26,7 +26,7 @@ public class FashionShopListASyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... voids) {
         try {
-            URL url = new URL("http://103.237.147.137:8050/api/CuaHang/DanhSachCuaHang");
+            URL url = new URL("http://35.227.90.131:9001/api/CuaHang/DanhSachCuaHang");
             //tạo connect lên server
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //config server trả về data dang json

@@ -1,16 +1,8 @@
 package com.greenacademy.ga_finalprojecthm.asynctask;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
-import com.greenacademy.ga_finalprojecthm.ICallBack;
-import com.greenacademy.ga_finalprojecthm.model.LoaiTapChiJson;
-import com.greenacademy.ga_finalprojecthm.model.RootLoaiTapChi;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;

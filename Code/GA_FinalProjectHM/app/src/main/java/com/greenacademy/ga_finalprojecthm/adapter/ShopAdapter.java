@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.greenacademy.ga_finalprojecthm.R;
-import com.greenacademy.ga_finalprojecthm.model.FashionShop;
+import com.greenacademy.ga_finalprojecthm.model.fashionshop.FashionShop;
 
 import java.util.ArrayList;
 
@@ -46,7 +46,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ShopHolder> {
     public void onBindViewHolder(ShopHolder holder, final int position) {
         fashionShop = fashionShopList.get(position);
         holder.name.setText(fashionShop.getName());
-//        holder.distance.setText(fashionShop.getDistance(fashionShop.getLat(),fashionShop.getLng()).toString());
+        holder.distance.setText(fashionShop.getDistance(context,fashionShop.getLat(),fashionShop.getLng()).toString().substring(0,4)+" km");
         holder.address.setText(fashionShop.getAddress());
         holder.style.setText(fashionShop.getStyle());
         holder.evaluate.setText(fashionShop.getEvaluate().toString());

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
+import com.greenacademy.ga_finalprojecthm.fragment.HomeTempFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MagazineFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MyHMFragment;

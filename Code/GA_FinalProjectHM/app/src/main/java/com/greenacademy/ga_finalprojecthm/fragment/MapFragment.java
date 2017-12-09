@@ -4,10 +4,10 @@ package com.greenacademy.ga_finalprojecthm.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.IntentSender;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,6 +36,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -59,12 +60,13 @@ import com.greenacademy.ga_finalprojecthm.adapter.CustomInfoWindowAdapter;
 import com.greenacademy.ga_finalprojecthm.util.IReceiverJSON;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.adapter.ShopAdapter;
-import com.greenacademy.ga_finalprojecthm.model.FashionShop;
+import com.greenacademy.ga_finalprojecthm.model.fashionshop.FashionShop;
 
 import com.greenacademy.ga_finalprojecthm.server.ParsingToModelFromJSON;
 import com.greenacademy.ga_finalprojecthm.asynctask.FashionShopListASyncTask;
-import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
+import com.greenacademy.ga_finalprojecthm.model.fashionshop.FashionShopList;
 
+import static android.content.Context.MODE_PRIVATE;
 import static com.facebook.FacebookSdk.getApplicationContext;
 
 
@@ -84,16 +86,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
     RecyclerView rcvList;
     ViewSwitcher vsMap;
     GoogleMap mGoogleMap;
-//    MapView mMapview;
     View mView;
     ImageButton btnMyLocate;
     SearchView svMap;
+    Context context;
     //
     LocationRequest locationRequest;
     Marker currentLocationmMarker;
     double latitude, longitude;
-    LocationManager locationManager;
-    LocationListener locationListener;
     FashionShop store;
     FashionShopList fashionShopList = new FashionShopList();
     FashionShopListASyncTask fashionShopListASyncTask;
@@ -137,8 +137,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
                     checkForLocationRequestSetting(locationRequest);
                     mGoogleApiClient.connect();
+                    //lấy myLocation
                     mGoogleMap.setMyLocationEnabled(true);
-                    store.getMyCurrentLocation(mLastLocation,mGoogleMap,mGoogleApiClient);
+                    LocationAvailability locationAvailability = LocationServices.FusedLocationApi.getLocationAvailability(mGoogleApiClient);
+                    if (null != locationAvailability && locationAvailability.isLocationAvailable()) {
+                        // 3
+                        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+                        // 4
+                        if (mLastLocation != null) {
+                            LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation
+                                    .getLongitude());
+                            mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 12));
+                            //lưu vào share prefernence
+                            SharedPreferences pre= context.getSharedPreferences("myLocation", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = pre.edit();
+                            editor.putString("currentLocation",currentLocation.toString()).commit();
+
+//                            store.setCurrentLocation(currentLocation);
+                        }
+                    }
 
                 } catch (SecurityException ex) {
                     ex.printStackTrace();
@@ -272,7 +289,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
                     .target(new LatLng(10.7, 106.6)).zoom(10).bearing(0).tilt(45).build();
             // tạo infoWindow cho marker
             marker.setTag(cuaHang);
-            CustomInfoWindowAdapter infoWindowAdapter = new CustomInfoWindowAdapter(this,fashionShopList.getCuaHangTranfers());
+            CustomInfoWindowAdapter infoWindowAdapter = new CustomInfoWindowAdapter(getContext(),fashionShopList.getCuaHangTranfers());
             mGoogleMap.setInfoWindowAdapter(infoWindowAdapter);
             marker.showInfoWindow();
             mGoogleMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -358,10 +375,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback,
 
     @Override
     public void onInfoWindowClick(Marker marker) {
-//        int position = (Integer) marker.getTag();
-//        store = fashionShopList.getCuaHangTranfers().get(position);
-//        store.getName();
-//        store.getAddress();
         store = (FashionShop) marker.getTag();
         shopAdapter.storeDialog(store).show();
     }

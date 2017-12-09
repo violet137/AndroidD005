@@ -1,18 +1,16 @@
 package com.greenacademy.ga_finalprojecthm.adapter;
 
-import android.app.Fragment;
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.greenacademy.ga_finalprojecthm.R;
-import com.greenacademy.ga_finalprojecthm.model.FashionShop;
-import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
+import com.greenacademy.ga_finalprojecthm.model.fashionshop.FashionShop;
 
 import java.util.ArrayList;
 
@@ -21,10 +19,10 @@ import java.util.ArrayList;
  */
 
 public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
-    MapFragment context;
+    Context context;
     ArrayList<FashionShop> fashionShopList;
 //    FashionShopList fashionShopList;
-    public CustomInfoWindowAdapter(MapFragment context,ArrayList<FashionShop> fashionShopList){
+    public CustomInfoWindowAdapter(Context context,ArrayList<FashionShop> fashionShopList){
         this.context = context;
         this.fashionShopList = fashionShopList;
     }
@@ -38,7 +36,8 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
     public View getInfoContents(Marker marker) {
         ImageView ivApp;
         TextView tviName,tviAddress,tviStyle,tviDistance;
-        View v = context.getLayoutInflater().inflate(R.layout.item_map_info_window,null);
+        LayoutInflater inflater = LayoutInflater.from(context);
+        View v = inflater.inflate(R.layout.item_map_info_window,null);;
         // Getting the position from the marker
 
         ivApp = v.findViewById(R.id.ivApp);
@@ -52,7 +51,7 @@ public class CustomInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         tviName.setText(store.getName());
         tviAddress.setText(store.getAddress());
         tviStyle.setText(store.getStyle());
-//          tviDistance.setText(store.getDistance());
+        tviDistance.setText((store.getDistance(context,store.getLat(),store.getLng()).toString().substring(0,4)+" km"));
     return v;
     }
 }

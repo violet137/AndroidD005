@@ -1,6 +1,6 @@
-package com.greenacademy.ga_finalprojecthm.model;
+package com.greenacademy.ga_finalprojecthm.model.fashionshop;
 
-import com.greenacademy.ga_finalprojecthm.model.FashionShop;
+import com.greenacademy.ga_finalprojecthm.model.fashionshop.FashionShop;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by GIT on 9/21/2017.
  */
 
-public class FashionShopList extends ArrayList<FashionShopList> {
+public class FashionShopList {
     ArrayList<FashionShop> CuaHangTranfers = new ArrayList<>();
     int status;
     String Description;

@@ -1,7 +1,11 @@
 package com.greenacademy.ga_finalprojecthm.server;
 
-import com.greenacademy.ga_finalprojecthm.model.FashionShopList;
-import com.greenacademy.ga_finalprojecthm.model.FashionShop;
+import com.greenacademy.ga_finalprojecthm.model.fashionset.FashionSet;
+import com.greenacademy.ga_finalprojecthm.model.fashionset.FashionSetList;
+import com.greenacademy.ga_finalprojecthm.model.fashionset.HinhTranfer;
+import com.greenacademy.ga_finalprojecthm.model.fashionset.SanPhamTranfer;
+import com.greenacademy.ga_finalprojecthm.model.fashionshop.FashionShopList;
+import com.greenacademy.ga_finalprojecthm.model.fashionshop.FashionShop;
 import com.greenacademy.ga_finalprojecthm.model.LoaiHoTro;
 import com.greenacademy.ga_finalprojecthm.model.LoaiTapChiJson;
 import com.greenacademy.ga_finalprojecthm.model.LoginDetails;
@@ -10,6 +14,7 @@ import com.greenacademy.ga_finalprojecthm.model.RootLoaiHoTro;
 import com.greenacademy.ga_finalprojecthm.model.RootLoaiTapChi;
 import com.greenacademy.ga_finalprojecthm.model.RootSupport;
 import com.greenacademy.ga_finalprojecthm.model.TapChiJson;
+import com.greenacademy.ga_finalprojecthm.model.fashionset.SetDoTranfer;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,15 +25,82 @@ import org.json.JSONObject;
  */
 
 public class ParsingToModelFromJSON {
+    public static FashionSetList parseToFashionSetList(String strJSON){
+        FashionSetList rootFashionSet = new FashionSetList();
+        try {
+            JSONObject rootJson = new JSONObject(strJSON);
+            int status = rootJson.getInt("Status");
+            String des = rootJson.getString("Description");
+            rootFashionSet.setStatus(status);
+            rootFashionSet.setDescription(des);
+            //
+            JSONArray xuhuongListJson = rootJson.getJSONArray("XuHuongTtrangTranfer ");
+            for (int i=0;i<xuhuongListJson.length();i++) {
+                JSONObject xuhuongJson = xuhuongListJson.getJSONObject(i);
+                int idXuhuong = xuhuongJson.getInt("IdXuHuong ");
+                String hinh = xuhuongJson.getString("HinhDaiDien  ");
+                String loaittrang = xuhuongJson.getString("LoaiThoiTrang ");
+                //
+                JSONArray setdoListJson = xuhuongJson.getJSONArray("SetDoTranfer ");
+                int idSp = 0;
+                float giatien = 0;
+                String linkHinh = null;
+                int idSet = 0;
+                String hinhSet = null;
+                for (int j = 0; j < setdoListJson.length(); j++) {
+                    JSONObject setdoJson = setdoListJson.getJSONObject(i);
+                    idSet = setdoJson.getInt("Id ");
+                    hinhSet = setdoJson.getString("HinhDaiDien ");
+                    //
+                    JSONArray sanphamListJson = setdoJson.getJSONArray("SanPhamTranfer  ");
+                    for (int k = 0; k < setdoListJson.length(); k++) {
+                        JSONObject sanphamJson = sanphamListJson.getJSONObject(i);
+                        idSp = sanphamJson.getInt("Id ");
+                        giatien = sanphamJson.getInt("GiaTien ");
+                        //
+                        JSONArray hinhListJson = sanphamJson.getJSONArray("HinhByColor ");
+                        for (int l = 0; l < hinhListJson.length(); l++) {
+                            JSONObject hinhJson = hinhListJson.getJSONObject(i);
+                            linkHinh = hinhJson.getString("LinkHinh ");
+                            //set data HinhTranfer
+//                            HinhTranfer h = new HinhTranfer();
+//                            h.setLinkHinh(linkHinh);
+                        }
+                    }
+                };
+                FashionSet fashionSet = new FashionSet();
+                SetDoTranfer sd = new SetDoTranfer();
+                //set data SanPhamTranfer
+                SanPhamTranfer sp = new SanPhamTranfer();
+                sp.setIdSp(idSp);
+                sp.setGiatien(giatien);
+                sp.setLinkhinh(linkHinh);
+                sd.getSanPhamTranferArrayList().add(sp);
+                //set data SetDoTranfer
+                sd.setIdSet(idSet);
+                sd.setHinhSet(hinhSet);
+                fashionSet.getSetDoTranferArrayList().add(sd);
+                //set data FashionSet
+                fashionSet.setIdXuHuong(idXuhuong);
+                fashionSet.setHinh(hinh);
+                fashionSet.setLoaithoitrang(loaittrang);
+                rootFashionSet.getXuHuongTrangTranfers().add(fashionSet);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return rootFashionSet;
+    }
+
     public static FashionShopList parseToFashionShopList(String strJSON) {
-        FashionShopList root = new FashionShopList();
+        FashionShopList rootFashionShop = new FashionShopList();
         try {
             JSONObject rootJson = new JSONObject(strJSON);
 
             int status = rootJson.getInt("Status");
             String des = rootJson.getString("Description");
-            root.setStatus(status);
-            root.setDescription(des);
+            rootFashionShop.setStatus(status);
+            rootFashionShop.setDescription(des);
             //
             JSONArray cuahangListJson = rootJson.getJSONArray("CuaHangTranfers");
             for (int i =0; i <cuahangListJson.length(); i++){
@@ -58,12 +130,12 @@ public class ParsingToModelFromJSON {
                 shop.setLat(lat);
                 shop.setLng(lng);
                 shop.setEvaluate(evaluate);
-                root.getCuaHangTranfers().add(shop);
+                rootFashionShop.getCuaHangTranfers().add(shop);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return root;
+        return rootFashionShop;
     }
 
     public static RootLoaiHoTro parseToLoaiHoTro(String strJSON) {

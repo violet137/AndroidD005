@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.greenacademy.ga_finalprojecthm.ICallBack;
+import com.greenacademy.ga_finalprojecthm.util.ICallBack;
 import com.greenacademy.ga_finalprojecthm.R;
 import com.greenacademy.ga_finalprojecthm.adapter.TapChiAdapter;
 import com.greenacademy.ga_finalprojecthm.asynctask.AsynTaskTapChi;

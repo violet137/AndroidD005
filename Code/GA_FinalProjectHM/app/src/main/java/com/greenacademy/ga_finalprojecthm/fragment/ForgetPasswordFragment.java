@@ -55,7 +55,6 @@ public class ForgetPasswordFragment extends Fragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-
             case R.id.btnForget:
                 if (etEmailForget.length() == 0) {
                     tvThongBao.setText("Vui lòng nhập địa chỉ email");
@@ -72,7 +71,6 @@ public class ForgetPasswordFragment extends Fragment implements View.OnClickList
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
-
         }
     }
 }

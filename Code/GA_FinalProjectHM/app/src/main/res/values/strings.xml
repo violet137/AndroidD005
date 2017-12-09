@@ -63,7 +63,8 @@
     <string name="log_in_warning">You must fill in all of the field!</string>
     <string name="forgot_password_intro">Nhập địa chỉ email mà bạn sử dụng để đăng ký,chúng tôi sẽ gửi mật khẩu mới cho bạn.</string>
     <string name="password_warning">Your password must have at least 6 characters. Use uppercase and lowercase with number to make it safer.</string>
-    <string name="contact_form_intro">Your local Customer Service team is always ready to help! Whatever your  question is, please don\'t hesitate to give us a call, or send an email. For an easy and quick way to find what you\'re looking for, please take a look at our FAQs\n\nPlease note that you can\'t apply for a job through this contact form"</string>
+    <string name="contact_form_intro">Your local Customer Service team is always ready to help! Whatever your  question is, please don\'t hesitate to give us a call,
+        or send an email. For an easy and quick way to find what you\'re looking for, please take a look at our FAQs\n\nPlease note that you can\'t apply for a job through this contact form"</string>
     <string name="privacy_policy">Giới thiệu\n\n H và M đảm bảo rằng những thông tin cá nhân của bạn luôn được bảo vệ khi
         sử dụng dịch vụ của chúng tôi. Do đó, chúng tôi có chính sách xác định quy trình xử lý và bảo vệ các dữ liệu riêng tư
         của khách hàng. Vui lòng cập nhật những thay đổi của Chính sách Bảo mật này bằng cách truy cập vào trang web của chúng tôi.

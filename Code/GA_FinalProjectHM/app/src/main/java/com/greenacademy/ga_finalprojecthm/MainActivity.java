@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.greenacademy.ga_finalprojecthm.adapter.DrawerItemCustomAdapter;
+import com.greenacademy.ga_finalprojecthm.fragment.ChiTietSanPhamFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MagazineFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MapFragment;
 import com.greenacademy.ga_finalprojecthm.fragment.MyHMFragment;
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
             //fragment Magazine
             case 4:
-                fragment = new MagazineFragment();
+                fragment = new ChiTietSanPhamFragment();
                 break;
             //fragment Wish List
             case 5:

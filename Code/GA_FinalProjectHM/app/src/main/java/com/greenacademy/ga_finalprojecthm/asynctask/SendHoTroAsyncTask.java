@@ -25,7 +25,7 @@ public class SendHoTroAsyncTask extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... sendhotro) {
         try {
-            URL url = new URL("http://tamod.vn:8050/api/HoTro/GuiHoTro");
+            URL url = new URL("http://35.227.90.131:9001/swagger/ui/index#!/HoTro/HoTro_GuiHoTro");
             //tạo connect lên server qua hàm openConnection
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //config giao thức truyền lên server

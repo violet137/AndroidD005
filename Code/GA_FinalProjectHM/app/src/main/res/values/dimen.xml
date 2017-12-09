@@ -11,4 +11,13 @@
     <dimen name="margin_start_general">10dp</dimen>
     <dimen name="margin_end_general">10dp</dimen>
     <dimen name="margin_padding_none">0dp</dimen>
+
+    <dimen name="margin_top_share_chitiet_sapham">20dp</dimen>
+    <dimen name="margin_start_share_chitiet_sapham">10dp</dimen>
+    <dimen name="margin_top_chitiet_sanpham">15dp</dimen>
+    <dimen name="margin_top_price">350dp</dimen>
+    <dimen name="margin_start_price">300dp</dimen>
+
+    <dimen name="margin_button_start_color">25dp</dimen>
+    <dimen name="margin_button_start_bacham">7dp</dimen>
 </resources>

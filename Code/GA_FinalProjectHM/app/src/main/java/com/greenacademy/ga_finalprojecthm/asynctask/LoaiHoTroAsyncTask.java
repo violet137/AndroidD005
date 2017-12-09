@@ -30,7 +30,7 @@ public class LoaiHoTroAsyncTask extends AsyncTask<Void, Void, String> {
     @Override
     protected String doInBackground(Void... area) {
         try {
-            URL url = new URL("http://tamod.vn:8050/api/HoTro/LoaiHoTro");
+            URL url = new URL("http://35.227.90.131:9001/swagger/ui/index#!/HoTro/HoTro_LoaiHoTro");
             //tạo connect lên server
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             //config server trả về data dang json
